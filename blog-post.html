@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post — BrickSpark</title>
+  <meta name="description" content="Read the latest from the BrickSpark blog.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧱</text></svg>">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar"><div class="container"><div class="nav-inner">
+  <a href="index.html" class="nav-logo">Brick<span>Spark</span> 🧱</a>
+  <ul class="nav-links"><li><a href="shop.html">Shop</a></li><li><a href="blog.html">Blog</a></li><li><a href="studio.html">Studio</a></li><li><a href="club.html">Club</a></li><li><a href="schools.html">Schools</a></li><li><a href="about.html">About</a></li></ul>
+  <div class="nav-right"><button class="cart-btn" onclick="openCart()">🛒 Cart <span class="cart-badge">0</span></button><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button></div>
+</div></div></nav>
+<div class="mobile-menu" id="mobile-menu"><a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a></div>
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar"><div class="cart-header"><h3>🛒 Your Cart</h3><button class="cart-close" onclick="closeCart()">✕</button></div><div class="cart-items" id="cart-items"></div><div class="cart-footer" id="cart-footer" style="display:none"><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:.9rem"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div><div style="display:flex;justify-content:space-between;margin-bottom:14px;font-size:.9rem;color:var(--muted)"><span>Shipping</span><span id="cart-shipping">$5.99</span></div><div class="cart-total"><span>Total</span><span id="cart-grand">$0.00</span></div><a href="checkout.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px">Checkout →</a></div></div>
+
+<!-- Blog Post Content -->
+<section class="blog-post-page">
+  <div class="container">
+    <div class="blog-post-container" id="blog-post">
+      <!-- Loading skeleton -->
+      <div style="padding:20px 0">
+        <div class="skeleton" style="height:16px;width:20%;margin-bottom:24px"></div>
+        <div class="skeleton" style="height:20px;width:30%;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:42px;width:85%;margin-bottom:16px"></div>
+        <div class="skeleton" style="height:16px;width:45%;margin-bottom:32px"></div>
+        <div class="skeleton" style="height:300px;width:100%;margin-bottom:32px;border-radius:16px"></div>
+        <div class="skeleton" style="height:16px;width:100%;margin-bottom:8px"></div>
+        <div class="skeleton" style="height:16px;width:100%;margin-bottom:8px"></div>
+        <div class="skeleton" style="height:16px;width:90%;margin-bottom:8px"></div>
+        <div class="skeleton" style="height:16px;width:75%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Posts -->
+<section id="related-section" style="display:none;padding:60px 0;background:var(--gray-50)">
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:32px">More from the Blog</h2>
+    <div class="blog-grid" id="related-posts" style="max-width:800px;margin:0 auto;grid-template-columns:repeat(2,1fr)"></div>
+  </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section class="newsletter">
+  <div class="container">
+    <h2>📬 Join the BrickSpark Newsletter</h2>
+    <p>Get building tips, exclusive offers, and community highlights delivered to your inbox.</p>
+    <form class="newsletter-form" onsubmit="return handleNewsletter(event)">
+      <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+      <button type="submit" class="btn btn-primary">Subscribe 🧱</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer><div class="container"><div class="footer-grid">
+  <div><div class="footer-logo">Brick<span>Spark</span> 🧱</div><p class="footer-about">Ignite imagination with every brick.</p><div class="social-links"><a class="social-link" href="#">📘</a><a class="social-link" href="#">📸</a><a class="social-link" href="#">🐦</a></div></div>
+  <div><h4>Shop</h4><ul class="footer-col"><li><a href="shop.html">All Kits</a></li></ul></div>
+  <div><h4>Company</h4><ul class="footer-col"><li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+  <div><h4>Support</h4><ul class="footer-col"><li><a href="contact.html">Contact</a></li></ul></div>
+</div><div class="footer-bottom"><p>© 2026 BrickSpark. All rights reserved.</p></div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/app.js"></script>
+<script>
+(function() {
+  const SUPABASE_URL = 'https://dppjohfplbznhggdemeu.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwcGpvaGZwbGJ6bmhnZ2RlbWV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzMwODYsImV4cCI6MjA5MDIwOTA4Nn0.05a8RlPvNlpDgarsjvvFDoPBUKDCOPUwMqquVoBH63o';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  /* --- Cart helpers --- */
+  function getCart() { try { return JSON.parse(localStorage.getItem('brickspark_cart')) || []; } catch { return []; } }
+  function saveCart(c) { localStorage.setItem('brickspark_cart', JSON.stringify(c)); refreshCartUI(); }
+
+  function refreshCartUI() {
+    const cart = getCart();
+    const badge = document.querySelector('.cart-badge');
+    const itemsEl = document.getElementById('cart-items');
+    const footerEl = document.getElementById('cart-footer');
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const grandEl = document.getElementById('cart-grand');
+    const n = cart.reduce((s, i) => s + i.quantity, 0);
+    if (badge) badge.textContent = n;
+    if (!cart.length) {
+      itemsEl.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--gray-500)"><div style="font-size:3rem;margin-bottom:12px">🧱</div><p>Your cart is empty!</p></div>';
+      footerEl.style.display = 'none';
+      return;
+    }
+    footerEl.style.display = 'block';
+    let subtotal = 0;
+    let html = '';
+    cart.forEach(item => {
+      subtotal += item.price * item.quantity;
+      html += '<div style="display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--gray-100)">'
+        + '<div style="width:80px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--gray-100)">'
+        + (item.image_url ? '<img src="' + item.image_url + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover" loading="lazy">' : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem">🧱</div>')
+        + '</div><div style="flex:1"><h4 style="font-size:.95rem;font-weight:700;margin-bottom:4px">' + item.name + '</h4>'
+        + '<div style="color:var(--red);font-weight:800;font-size:.95rem">$' + item.price.toFixed(2) + '</div>'
+        + '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">'
+        + '<button class="qty-btn" onclick="updateCartQty(\'' + item.id + '\',-1)">−</button>'
+        + '<span style="font-weight:700;min-width:20px;text-align:center">' + item.quantity + '</span>'
+        + '<button class="qty-btn" onclick="updateCartQty(\'' + item.id + '\',1)">+</button>'
+        + '<span style="font-size:.8rem;color:var(--gray-500);cursor:pointer;margin-left:auto" onclick="removeCartItem(\'' + item.id + '\')">✕ Remove</span>'
+        + '</div></div></div>';
+    });
+    itemsEl.innerHTML = html;
+    const shipping = subtotal >= 50 ? 0 : 5.99;
+    subtotalEl.textContent = '$' + subtotal.toFixed(2);
+    document.getElementById('cart-shipping').textContent = shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2);
+    grandEl.textContent = '$' + (subtotal + shipping).toFixed(2);
+  }
+
+  window.removeCartItem = function(id) { saveCart(getCart().filter(i => i.id !== id)); };
+  window.updateCartQty = function(id, d) {
+    const c = getCart(); const i = c.find(x => x.id === id);
+    if (i) { i.quantity += d; if (i.quantity <= 0) saveCart(c.filter(x => x.id !== id)); else saveCart(c); }
+  };
+  window.openCart = function() {
+    document.getElementById('cart-sidebar').classList.add('open');
+    document.getElementById('cart-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeCart = function() {
+    document.getElementById('cart-sidebar').classList.remove('open');
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  /* --- Hamburger --- */
+  document.getElementById('hamburger').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  /* --- Blog card HTML (for related posts) --- */
+  function blogCardHTML(p) {
+    const dateStr = new Date(p.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const imgSrc = p.image_url || 'https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=800';
+    return '<div class="blog-card fade-in-up">'
+      + '<a href="blog-post.html?slug=' + p.slug + '" class="blog-card-image"><img src="' + imgSrc + '" alt="' + p.title + '" loading="lazy"></a>'
+      + '<div class="blog-card-body">'
+      + '<span class="blog-category-badge">' + (p.category || 'General') + '</span>'
+      + '<h3><a href="blog-post.html?slug=' + p.slug + '">' + p.title + '</a></h3>'
+      + '<p>' + (p.excerpt || '') + '</p>'
+      + '<div class="blog-meta"><span>' + (p.author || 'BrickSpark Team') + '</span><span>·</span><span>' + dateStr + '</span></div>'
+      + '</div></div>';
+  }
+
+  /* --- Copy link helper --- */
+  window.copyPostLink = function() {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      if (window.showToast) showToast('Link copied to clipboard! 🔗');
+    });
+  };
+
+  /* --- Newsletter --- */
+  window.handleNewsletter = function(e) {
+    e.preventDefault();
+    const email = document.getElementById('newsletter-email').value.trim();
+    if (!email) return false;
+    sb.from('newsletter').insert([{ email, subscribed_at: new Date().toISOString() }])
+      .then(function(res) {
+        if (res.error && res.error.code === '23505') {
+          if (window.showToast) showToast("You're already subscribed! 🎉", 'info');
+        } else if (res.error) {
+          if (window.showToast) showToast('Something went wrong. Please try again.', 'error');
+        } else {
+          if (window.showToast) showToast('Welcome to the BrickSpark newsletter! 🧱');
+          document.getElementById('newsletter-email').value = '';
+        }
+      });
+    return false;
+  };
+
+  /* --- pageInit --- */
+  async function pageInit() {
+    const slug = new URLSearchParams(window.location.search).get('slug');
+    if (!slug) {
+      document.getElementById('blog-post').innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--gray-500)">'
+        + '<div style="font-size:4rem;margin-bottom:16px">📝</div>'
+        + '<h3 style="margin-bottom:8px;color:var(--gray-700)">Post not found</h3>'
+        + '<p style="margin-bottom:20px">The blog post you\'re looking for doesn\'t exist.</p>'
+        + '<a href="blog.html" class="btn btn-primary">← Back to Blog</a></div>';
+      return;
+    }
+
+    try {
+      const { data: post, error } = await sb.from('blog_posts').select('*').eq('slug', slug).single();
+      if (error) throw error;
+
+      document.title = post.title + ' — BrickSpark Blog';
+
+      const dateStr = new Date(post.created_at).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+      // Estimate read time (words / 200)
+      const plainText = (post.content || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      const wordCount = plainText.split(' ').filter(function(w) { return w.length > 0; }).length;
+      const readTime = Math.max(1, Math.ceil(wordCount / 200));
+
+      let html = '';
+
+      // Back link
+      html += '<div style="margin-bottom:24px"><a href="blog.html" style="color:var(--red);font-weight:700;font-size:.95rem">← Back to Blog</a></div>';
+
+      // Article header
+      html += '<article>';
+      html += '<header class="blog-post-header">';
+      html += '<span class="blog-category-badge">' + (post.category || 'General') + '</span>';
+      html += '<h1>' + post.title + '</h1>';
+      html += '<div class="blog-post-meta">';
+      html += '<span>By <strong>' + (post.author || 'BrickSpark Team') + '</strong></span>';
+      html += '<span>·</span>';
+      html += '<span>' + dateStr + '</span>';
+      html += '<span>·</span>';
+      html += '<span>📖 ' + readTime + ' min read</span>';
+      html += '</div>';
+      html += '</header>';
+
+      // Hero image
+      if (post.image_url) {
+        html += '<div style="margin-bottom:32px;border-radius:16px;overflow:hidden">'
+          + '<img src="' + post.image_url + '" alt="' + post.title + '" style="width:100%;max-height:400px;object-fit:cover;display:block" loading="lazy">'
+          + '</div>';
+      }
+
+      // Article body (render content as innerHTML)
+      html += '<div class="blog-post-content">' + (post.content || '<p>Content coming soon.</p>') + '</div>';
+
+      // Share section
+      html += '<div class="share-buttons" style="display:flex;align-items:center;gap:12px;margin-top:40px;padding-top:24px;border-top:1px solid var(--gray-200);flex-wrap:wrap">';
+      html += '<span style="font-weight:800;color:var(--navy)">Share this post:</span>';
+      html += '<a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(post.title) + '&url=' + encodeURIComponent(window.location.href) + '" target="_blank" rel="noopener" class="share-btn">🐦 Twitter / X</a>';
+      html += '<a href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href) + '" target="_blank" rel="noopener" class="share-btn">📘 Facebook</a>';
+      html += '<button class="share-btn" onclick="copyPostLink()">🔗 Copy Link</button>';
+      html += '</div>';
+
+      html += '</article>';
+
+      document.getElementById('blog-post').innerHTML = html;
+
+      // Load related posts (2 other posts, different slugs)
+      try {
+        const { data: related } = await sb.from('blog_posts').select('*')
+          .neq('slug', slug)
+          .order('created_at', { ascending: false })
+          .limit(2);
+        if (related && related.length) {
+          document.getElementById('related-section').style.display = 'block';
+          document.getElementById('related-posts').innerHTML = related.map(blogCardHTML).join('');
+        }
+      } catch (e) { console.warn('Could not load related posts:', e); }
+
+    } catch (e) {
+      console.error('Failed to load blog post:', e);
+      document.getElementById('blog-post').innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--gray-500)">'
+        + '<div style="font-size:4rem;margin-bottom:16px">📝</div>'
+        + '<h3 style="margin-bottom:8px;color:var(--gray-700)">Post not found</h3>'
+        + '<p style="margin-bottom:20px">The blog post you\'re looking for doesn\'t exist.</p>'
+        + '<a href="blog.html" class="btn btn-primary">← Back to Blog</a></div>';
+    }
+  }
+
+  refreshCartUI();
+  pageInit();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrickSpark — Ignite Imagination with Every Brick!</title>
+  <meta name="description" content="Premium building toy kits for kids aged 3-12. STEM-certified, safe, and endlessly creative.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧱</text></svg>">
+  <script>!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);posthog.init('phc_NeRnpNJo',{api_host:'https://app.posthog.com'});</script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>Brick</span>Spark 🧱</a>
+      <div class="navbar-links">
+        <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+        <a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="cart-btn" id="cart-toggle" title="Cart">🛒<span class="cart-badge" id="cart-badge">0</span></div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+      <a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header"><h3>🛒 Your Cart</h3><div class="cart-close" id="cart-close">✕</div></div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty" id="cart-empty"><div class="empty-icon">🧱</div><p>Your cart is empty!</p><p style="font-size:0.85rem;margin-top:8px;">Start building your collection</p></div>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total"><span>Total</span><span class="amount" id="cart-total-amount">$0.00</span></div>
+      <a href="shop.html" class="btn btn-primary">View Shop</a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Ignite <span class="highlight">Imagination</span> with Every Brick!</h1>
+      <p>Premium building kits that spark creativity, teach STEM skills, and bring families together. For ages 3–12.</p>
+      <div class="hero-buttons">
+        <a href="shop.html" class="btn btn-primary btn-lg">Shop Now →</a>
+        <a href="about.html" class="btn btn-white btn-lg">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-bricks" aria-hidden="true">
+      <div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div>
+      <div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div>
+      <div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div>
+      <div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div>
+      <div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div><div class="hero-brick"></div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header"><h2>⭐ Featured Products</h2><p>Our most popular kits loved by kids and parents worldwide</p></div>
+      <div class="products-grid" id="featured-products">
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div></div>
+      </div>
+      <div class="text-center mt-8"><a href="shop.html" class="btn btn-outline">View All Products →</a></div>
+    </div>
+  </section>
+
+  <!-- Why BrickSpark -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header"><h2>Why BrickSpark?</h2><p>More than just building toys — we're building futures</p></div>
+      <div class="features-grid">
+        <div class="feature-card fade-in-up"><div class="feature-icon">🛡️</div><h3>Safe &amp; Durable</h3><p>Made from non-toxic, BPA-free ABS plastic. Tested to exceed ASTM F963 and EN71 safety standards. Built to last through years of creative play.</p></div>
+        <div class="feature-card fade-in-up"><div class="feature-icon">🔬</div><h3>STEM Learning</h3><p>Every kit includes challenge cards that teach engineering, math, and spatial reasoning. Learning disguised as play — kids won't even realize they're studying!</p></div>
+        <div class="feature-card fade-in-up"><div class="feature-icon">✨</div><h3>Endless Creativity</h3><p>Compatible with major brick brands. Guided builds plus free-play pieces in every set. One kit, infinite possibilities for creative exploration.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header"><h2>📝 From the Blog</h2><p>Tips, challenges, and stories from the BrickSpark community</p></div>
+      <div class="blog-grid" id="blog-preview">
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div></div>
+      </div>
+      <div class="text-center mt-8"><a href="blog.html" class="btn btn-outline">Read More →</a></div>
+    </div>
+  </section>
+
+  <!-- App Teaser -->
+  <section class="app-teaser">
+    <div class="container">
+      <h2>🚀 BrickSpark Studio — Coming Soon!</h2>
+      <p>Scan your builds with AR, follow guided instructions, take on creative challenges, and track your progress. The future of building play is almost here.</p>
+      <form class="waitlist-form" id="waitlist-form">
+        <input type="email" placeholder="Enter your email for early access" required>
+        <button type="submit" class="btn btn-white">Join Waitlist</button>
+      </form>
+      <p style="font-size:0.85rem;opacity:0.6;margin-top:12px;">Launching Q3 2026 • No spam, ever</p>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <h2>📬 Stay in the Loop</h2>
+      <p>Get exclusive deals, building tips, and be the first to hear about new products.</p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><h3><span class="red">Brick</span>Spark 🧱</h3><p>Premium building kits that ignite imagination and teach STEM skills. For curious kids aged 3–12 and the families who love them.</p><div class="footer-social"><a href="#" title="Facebook">📘</a><a href="#" title="Instagram">📸</a><a href="#" title="Twitter">🐦</a><a href="#" title="YouTube">🎬</a></div></div>
+        <div class="footer-column"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html">Adventure Kits</a><a href="shop.html">STEM Kits</a><a href="shop.html">Bundles</a></div>
+        <div class="footer-column"><h4>Learn</h4><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">BrickSpark Club</a><a href="schools.html">Schools</a></div>
+        <div class="footer-column"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="#">Careers</a><a href="#">Press</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 BrickSpark. All rights reserved. Made with ❤️ for young builders everywhere.</p></div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script>
+    const supabase = window.supabase.createClient(BRICKSPARK_CONFIG.supabaseUrl, BRICKSPARK_CONFIG.supabaseAnonKey);
+
+    // Cart
+    function getCart(){try{return JSON.parse(localStorage.getItem('brickspark_cart'))||[]}catch{return[]}}
+    function saveCart(c){localStorage.setItem('brickspark_cart',JSON.stringify(c));updateCartUI()}
+    function addToCart(p){const c=getCart();const e=c.find(i=>i.id===p.id);if(e)e.quantity+=1;else c.push({...p,quantity:1});saveCart(c);showToast(p.name+' added to cart!')}
+    function removeFromCart(id){saveCart(getCart().filter(i=>i.id!==id))}
+    function updateQuantity(id,d){const c=getCart();const i=c.find(x=>x.id===id);if(i){i.quantity+=d;if(i.quantity<=0)saveCart(c.filter(x=>x.id!==id));else saveCart(c)}}
+    function updateCartUI(){
+      const cart=getCart(),badge=document.getElementById('cart-badge'),ic=document.getElementById('cart-items'),
+        footer=document.getElementById('cart-footer'),empty=document.getElementById('cart-empty'),totalEl=document.getElementById('cart-total-amount');
+      const n=cart.reduce((s,i)=>s+i.quantity,0);badge.textContent=n;badge.classList.toggle('show',n>0);
+      if(!cart.length){if(empty)empty.style.display='block';footer.style.display='none';ic.querySelectorAll('.cart-item').forEach(e=>e.remove());return}
+      if(empty)empty.style.display='none';footer.style.display='block';ic.querySelectorAll('.cart-item').forEach(e=>e.remove());
+      let t=0;cart.forEach(item=>{t+=item.price*item.quantity;const el=document.createElement('div');el.className='cart-item';
+        el.innerHTML=`<div class="cart-item-image"><img src="${item.image_url}" alt="${item.name}" loading="lazy"></div><div class="cart-item-info"><h4>${item.name}</h4><div class="price">$${item.price.toFixed(2)}</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQuantity('${item.id}',-1)">−</button><span class="qty-value">${item.quantity}</span><button class="qty-btn" onclick="updateQuantity('${item.id}',1)">+</button><span class="cart-item-remove" onclick="removeFromCart('${item.id}')">✕ Remove</span></div></div>`;
+        ic.appendChild(el)});totalEl.textContent='$'+t.toFixed(2);
+    }
+
+    // Cart toggle
+    const openCart=()=>{document.getElementById('cart-sidebar').classList.add('open');document.getElementById('cart-overlay').classList.add('open');document.body.style.overflow='hidden'};
+    const closeCart=()=>{document.getElementById('cart-sidebar').classList.remove('open');document.getElementById('cart-overlay').classList.remove('open');document.body.style.overflow=''};
+    document.getElementById('cart-toggle').addEventListener('click',openCart);
+    document.getElementById('cart-overlay').addEventListener('click',closeCart);
+    document.getElementById('cart-close').addEventListener('click',closeCart);
+
+    // Mobile nav
+    document.getElementById('hamburger').addEventListener('click',function(){this.classList.toggle('active');document.getElementById('mobile-nav').classList.toggle('open')});
+    window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>10));
+
+    // Toast
+    function showToast(msg,type='success'){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast '+type;t.innerHTML=`<span>${type==='success'?'✅':'❌'}</span> ${msg}`;c.appendChild(t);setTimeout(()=>t.remove(),3200)}
+
+    // Product card renderer
+    function renderProductCard(p){
+      const sp=p.sale_price||p.price,hd=p.sale_price&&p.sale_price<p.price;
+      let badge='';if(p.badge){const bc=p.badge.toLowerCase().includes('sale')?'sale':p.badge.toLowerCase().includes('new')?'new':p.badge.toLowerCase().includes('bundle')?'bundle':'';badge=`<span class="product-badge ${bc}">${p.badge}</span>`}
+      const cartData=JSON.stringify({id:p.id,name:p.name,price:sp,image_url:p.image_url,slug:p.slug}).replace(/"/g,'&quot;');
+      return `<div class="product-card fade-in-up"><a href="product.html?id=${p.slug}" class="product-card-image">${badge}<img src="${p.image_url}" alt="${p.name}" loading="lazy"></a><div class="product-card-body"><h3><a href="product.html?id=${p.slug}">${p.name}</a></h3><div class="product-meta">Ages ${p.age_range} • ${p.piece_count} pieces</div><div class="product-price"><span class="current">$${sp.toFixed(2)}</span>${hd?`<span class="original">$${p.price.toFixed(2)}</span>`:''}</div><button class="btn btn-primary btn-sm" onclick='addToCart(${JSON.stringify({id:p.id,name:p.name,price:sp,image_url:p.image_url,slug:p.slug})})'>Add to Cart 🛒</button></div></div>`;
+    }
+
+    // Load featured products
+    async function loadFeatured(){
+      const el=document.getElementById('featured-products');
+      try{
+        let{data,error}=await supabase.from('products').select('*').eq('featured',true).limit(4);
+        if(error)throw error;
+        if(!data||!data.length){const r=await supabase.from('products').select('*').limit(4);data=r.data}
+        if(data&&data.length)el.innerHTML=data.map(renderProductCard).join('');
+        else el.innerHTML='<p class="text-center" style="grid-column:1/-1;color:var(--gray-500)">Products coming soon!</p>';
+      }catch(e){console.error(e);el.innerHTML='<p class="text-center" style="grid-column:1/-1;color:var(--gray-500)">Unable to load products.</p>'}
+    }
+
+    // Load blog preview
+    async function loadBlog(){
+      const el=document.getElementById('blog-preview');
+      try{
+        const{data,error}=await supabase.from('blog_posts').select('*').order('created_at',{ascending:false}).limit(3);
+        if(error)throw error;
+        if(data&&data.length)el.innerHTML=data.map(p=>`<div class="blog-card fade-in-up"><a href="blog-post.html?slug=${p.slug}" class="blog-card-image"><img src="${p.image_url||'https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=800'}" alt="${p.title}" loading="lazy"></a><div class="blog-card-body"><span class="blog-category-badge">${p.category||'General'}</span><h3><a href="blog-post.html?slug=${p.slug}">${p.title}</a></h3><p>${p.excerpt||''}</p><div class="blog-meta"><span>${p.author||'BrickSpark Team'}</span><span>•</span><span>${new Date(p.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span></div></div></div>`).join('');
+        else el.innerHTML='<p class="text-center" style="grid-column:1/-1;color:var(--gray-500)">Blog posts coming soon!</p>';
+      }catch(e){console.error(e);el.innerHTML='<p class="text-center" style="grid-column:1/-1;color:var(--gray-500)">Unable to load blog posts.</p>'}
+    }
+
+    // Waitlist
+    document.getElementById('waitlist-form').addEventListener('submit',async e=>{e.preventDefault();const email=e.target.querySelector('input').value;try{await supabase.from('waitlist').insert([{email,source:'studio'}])}catch{}showToast("You're on the list! We'll be in touch 🎉");e.target.reset()});
+
+    // Newsletter
+    document.getElementById('newsletter-form').addEventListener('submit',async e=>{e.preventDefault();const email=e.target.querySelector('input').value;try{await supabase.from('newsletter').insert([{email}])}catch{}showToast('Subscribed! Welcome to the BrickSpark family 📬');e.target.reset()});
+
+    updateCartUI();loadFeatured();loadBlog();
+  </script>
+</body>
+</html>

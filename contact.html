@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — BrickSpark</title>
+  <meta name="description" content="Get in touch with BrickSpark. Questions, feedback, or partnership ideas welcome.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧱</text></svg>">
+  <script>!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);posthog.init('phc_NeRnpNJo',{api_host:'https://app.posthog.com'});</script>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>Brick</span>Spark 🧱</a>
+      <div class="navbar-links"><a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a><a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a></div>
+      <div class="navbar-actions"><div class="cart-btn" id="cart-toggle" title="Cart">🛒<span class="cart-badge" id="cart-badge">0</span></div><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></div>
+    </div>
+    <div class="mobile-nav" id="mobile-nav"><a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a><a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+  </nav>
+
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header"><h3>🛒 Your Cart</h3><div class="cart-close" id="cart-close">✕</div></div>
+    <div class="cart-items" id="cart-items"><div class="cart-empty" id="cart-empty"><div class="empty-icon">🧱</div><p>Your cart is empty!</p></div></div>
+    <div class="cart-footer" id="cart-footer" style="display:none;"><div class="cart-total"><span>Total</span><span class="amount" id="cart-total-amount">$0.00</span></div><a href="shop.html" class="btn btn-primary">View Shop</a></div>
+  </div>
+
+  <section class="page-hero"><div class="container"><h1>📬 Contact Us</h1><p>Have a question, feedback, or partnership idea? We'd love to hear from you!</p></div></section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info-cards">
+          <div class="contact-info-card"><div class="icon">📧</div><div><h3>Email Us</h3><p>support@brickspark.com<br>We respond within 24 hours</p></div></div>
+          <div class="contact-info-card"><div class="icon">📞</div><div><h3>Call Us</h3><p>1-800-BRICK-SP (274-2577)<br>Mon–Fri 9am–6pm EST</p></div></div>
+          <div class="contact-info-card"><div class="icon">📍</div><div><h3>Visit Us</h3><p>123 Innovation Drive<br>Toronto, ON M5V 3L9, Canada</p></div></div>
+          <div class="contact-info-card"><div class="icon">💬</div><div><h3>Social Media</h3><p>Follow us on Instagram, Twitter, and Facebook for updates and building inspiration.</p></div></div>
+        </div>
+        <div class="contact-form">
+          <h2 style="margin-bottom:24px">Send a Message</h2>
+          <form id="contact-form">
+            <div class="form-group"><label for="contact-name">Name *</label><input type="text" id="contact-name" placeholder="Your full name" required></div>
+            <div class="form-group"><label for="contact-email">Email *</label><input type="email" id="contact-email" placeholder="your@email.com" required></div>
+            <div class="form-group"><label for="contact-subject">Subject *</label><select id="contact-subject" required><option value="">Choose a topic</option><option value="Product Question">Product Question</option><option value="Order Support">Order Support</option><option value="Returns & Exchanges">Returns &amp; Exchanges</option><option value="School Partnership">School Partnership</option><option value="Wholesale Inquiry">Wholesale Inquiry</option><option value="Press & Media">Press &amp; Media</option><option value="Feedback">General Feedback</option><option value="Other">Other</option></select></div>
+            <div class="form-group"><label for="contact-message">Message *</label><textarea id="contact-message" placeholder="How can we help?" required style="min-height:150px"></textarea></div>
+            <button type="submit" class="btn btn-primary" id="contact-submit" style="width:100%">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header"><h2>❓ Frequently Asked Questions</h2><p>Quick answers to common questions</p></div>
+      <div style="max-width:700px;margin:0 auto">
+        <div style="border-bottom:1px solid var(--gray-200);padding:20px 0"><h3 style="font-size:1rem;margin-bottom:8px">How long does shipping take?</h3><p style="color:var(--gray-600);font-size:0.95rem">Standard shipping takes 3–5 business days within the US and Canada. Express shipping (1–2 days) is available. Orders over $50 qualify for free standard shipping.</p></div>
+        <div style="border-bottom:1px solid var(--gray-200);padding:20px 0"><h3 style="font-size:1rem;margin-bottom:8px">Are BrickSpark products safe for young children?</h3><p style="color:var(--gray-600);font-size:0.95rem">Absolutely. All kits are made from non-toxic, BPA-free ABS plastic and tested to exceed ASTM F963 and EN71 safety standards.</p></div>
+        <div style="border-bottom:1px solid var(--gray-200);padding:20px 0"><h3 style="font-size:1rem;margin-bottom:8px">Can I return or exchange a product?</h3><p style="color:var(--gray-600);font-size:0.95rem">Yes! 30-day no-questions-asked return policy. Contact support@brickspark.com for a free return label.</p></div>
+        <div style="padding:20px 0"><h3 style="font-size:1rem;margin-bottom:8px">Are BrickSpark bricks compatible with LEGO?</h3><p style="color:var(--gray-600);font-size:0.95rem">Yes! BrickSpark bricks use the industry-standard stud size and are compatible with most major building brick brands.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><h3><span class="red">Brick</span>Spark 🧱</h3><p>Premium building kits that ignite imagination and teach STEM skills. For curious kids aged 3–12.</p><div class="footer-social"><a href="#">📘</a><a href="#">📸</a><a href="#">🐦</a><a href="#">🎬</a></div></div>
+        <div class="footer-column"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html">Adventure Kits</a><a href="shop.html">STEM Kits</a><a href="shop.html">Bundles</a></div>
+        <div class="footer-column"><h4>Learn</h4><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">BrickSpark Club</a><a href="schools.html">Schools</a></div>
+        <div class="footer-column"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="#">Careers</a><a href="#">Press</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 BrickSpark. All rights reserved. Made with ❤️ for young builders everywhere.</p></div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script>
+    const supabase=window.supabase.createClient(BRICKSPARK_CONFIG.supabaseUrl,BRICKSPARK_CONFIG.supabaseAnonKey);
+
+    function getCart(){try{return JSON.parse(localStorage.getItem('brickspark_cart'))||[]}catch{return[]}}
+    function saveCart(c){localStorage.setItem('brickspark_cart',JSON.stringify(c));updateCartUI()}
+    function removeFromCart(id){saveCart(getCart().filter(i=>i.id!==id))}
+    function updateQuantity(id,d){const c=getCart();const i=c.find(x=>x.id===id);if(i){i.quantity+=d;if(i.quantity<=0)saveCart(c.filter(x=>x.id!==id));else saveCart(c)}}
+    function updateCartUI(){
+      const cart=getCart(),badge=document.getElementById('cart-badge'),ic=document.getElementById('cart-items'),
+        footer=document.getElementById('cart-footer'),empty=document.getElementById('cart-empty'),totalEl=document.getElementById('cart-total-amount');
+      const n=cart.reduce((s,i)=>s+i.quantity,0);badge.textContent=n;badge.classList.toggle('show',n>0);
+      if(!cart.length){if(empty)empty.style.display='block';footer.style.display='none';ic.querySelectorAll('.cart-item').forEach(e=>e.remove());return}
+      if(empty)empty.style.display='none';footer.style.display='block';ic.querySelectorAll('.cart-item').forEach(e=>e.remove());
+      let t=0;cart.forEach(item=>{t+=item.price*item.quantity;const el=document.createElement('div');el.className='cart-item';
+        el.innerHTML=`<div class="cart-item-image"><img src="${item.image_url}" alt="${item.name}" loading="lazy"></div><div class="cart-item-info"><h4>${item.name}</h4><div class="price">$${item.price.toFixed(2)}</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQuantity('${item.id}',-1)">−</button><span class="qty-value">${item.quantity}</span><button class="qty-btn" onclick="updateQuantity('${item.id}',1)">+</button><span class="cart-item-remove" onclick="removeFromCart('${item.id}')">✕ Remove</span></div></div>`;
+        ic.appendChild(el)});totalEl.textContent='$'+t.toFixed(2);
+    }
+    document.getElementById('cart-toggle').addEventListener('click',()=>{document.getElementById('cart-sidebar').classList.add('open');document.getElementById('cart-overlay').classList.add('open');document.body.style.overflow='hidden'});
+    document.getElementById('cart-overlay').addEventListener('click',()=>{document.getElementById('cart-sidebar').classList.remove('open');document.getElementById('cart-overlay').classList.remove('open');document.body.style.overflow=''});
+    document.getElementById('cart-close').addEventListener('click',()=>{document.getElementById('cart-sidebar').classList.remove('open');document.getElementById('cart-overlay').classList.remove('open');document.body.style.overflow=''});
+    document.getElementById('hamburger').addEventListener('click',function(){this.classList.toggle('active');document.getElementById('mobile-nav').classList.toggle('open')});
+    window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>10));
+    function showToast(msg,type='success'){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast '+type;t.innerHTML=`<span>${type==='success'?'✅':'❌'}</span> ${msg}`;c.appendChild(t);setTimeout(()=>t.remove(),3200)}
+
+    document.getElementById('contact-form').addEventListener('submit',async e=>{
+      e.preventDefault();const btn=document.getElementById('contact-submit');btn.disabled=true;btn.textContent='Sending...';
+      const name=document.getElementById('contact-name').value.trim(),email=document.getElementById('contact-email').value.trim(),
+        subject=document.getElementById('contact-subject').value,message=document.getElementById('contact-message').value.trim();
+      try{await supabase.from('contact_messages').insert([{name,email,subject,message}])}catch{}
+      showToast("Message sent! We'll get back to you soon 📬");e.target.reset();btn.disabled=false;btn.textContent='Send Message →';
+    });
+
+    updateCartUI();
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write a Post — BrickSpark Blog</title>
+  <meta name="description" content="Write and publish a new blog post on BrickSpark.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧱</text></svg>">
+  <script>!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);posthog.init('phc_NeRnpNJo',{api_host:'https://app.posthog.com'});</script>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>Brick</span>Spark 🧱</a>
+      <div class="navbar-links"><a href="shop.html">Shop</a><a href="blog.html" class="active">Blog</a><a href="studio.html">Studio</a><a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a></div>
+      <div class="navbar-actions"><div class="cart-btn" id="cart-toggle" title="Cart">🛒<span class="cart-badge" id="cart-badge">0</span></div><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></div>
+    </div>
+    <div class="mobile-nav" id="mobile-nav"><a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a><a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+  </nav>
+
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header"><h3>🛒 Your Cart</h3><div class="cart-close" id="cart-close">✕</div></div>
+    <div class="cart-items" id="cart-items"><div class="cart-empty" id="cart-empty"><div class="empty-icon">🧱</div><p>Your cart is empty!</p></div></div>
+    <div class="cart-footer" id="cart-footer" style="display:none;"><div class="cart-total"><span>Total</span><span class="amount" id="cart-total-amount">$0.00</span></div><a href="shop.html" class="btn btn-primary">View Shop</a></div>
+  </div>
+
+  <section class="page-hero"><div class="container"><h1>✏️ Write a Blog Post</h1><p>Share your building tips, stories, or challenges with the community</p></div></section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-form">
+        <form id="post-form">
+          <div class="form-group"><label for="post-title">Title *</label><input type="text" id="post-title" placeholder="Give your post a catchy title" required><div class="form-error" id="title-error"></div></div>
+          <div class="form-group"><label for="post-category">Category *</label><select id="post-category" required><option value="">Choose a category</option><option value="STEM Education">STEM Education</option><option value="Buying Guide">Buying Guide</option><option value="Community Challenge">Community Challenge</option><option value="Building Tips">Building Tips</option><option value="Parent Stories">Parent Stories</option><option value="News">News</option></select><div class="form-error" id="category-error"></div></div>
+          <div class="form-group"><label for="post-excerpt">Excerpt *</label><input type="text" id="post-excerpt" placeholder="A short summary (displayed in blog listings)" required><div class="form-error" id="excerpt-error"></div></div>
+          <div class="form-group"><label for="post-image">Image URL (optional)</label><input type="url" id="post-image" placeholder="https://images.unsplash.com/..."></div>
+          <div class="form-group"><label for="post-content">Content * <span style="font-weight:400;color:var(--gray-500)">(HTML supported)</span></label><textarea id="post-content" placeholder="Write your blog post here. You can use HTML tags like <h2>, <p>, <ul>, <li>, <strong>, etc." required></textarea><div class="form-error" id="content-error"></div></div>
+          <div class="form-actions"><button type="button" class="btn btn-outline" id="preview-btn">👁️ Preview</button><button type="submit" class="btn btn-primary" id="submit-btn">📤 Publish Post</button></div>
+        </form>
+        <div class="post-preview" id="post-preview"><h2 id="preview-title"></h2><div class="meta" id="preview-meta"></div><div class="blog-post-content" id="preview-content"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><h3><span class="red">Brick</span>Spark 🧱</h3><p>Premium building kits that ignite imagination and teach STEM skills. For curious kids aged 3–12.</p><div class="footer-social"><a href="#">📘</a><a href="#">📸</a><a href="#">🐦</a><a href="#">🎬</a></div></div>
+        <div class="footer-column"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html">Adventure Kits</a><a href="shop.html">STEM Kits</a><a href="shop.html">Bundles</a></div>
+        <div class="footer-column"><h4>Learn</h4><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">BrickSpark Club</a><a href="schools.html">Schools</a></div>
+        <div class="footer-column"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="#">Careers</a><a href="#">Press</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 BrickSpark. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script>
+    const supabase=window.supabase.createClient(BRICKSPARK_CONFIG.supabaseUrl,BRICKSPARK_CONFIG.supabaseAnonKey);
+
+    function getCart(){try{return JSON.parse(localStorage.getItem('brickspark_cart'))||[]}catch{return[]}}
+    function saveCart(c){localStorage.setItem('brickspark_cart',JSON.stringify(c));updateCartUI()}
+    function removeFromCart(id){saveCart(getCart().filter(i=>i.id!==id))}
+    function updateQuantity(id,d){const c=getCart();const i=c.find(x=>x.id===id);if(i){i.quantity+=d;if(i.quantity<=0)saveCart(c.filter(x=>x.id!==id));else saveCart(c)}}
+    function updateCartUI(){
+      const cart=getCart(),badge=document.getElementById('cart-badge'),ic=document.getElementById('cart-items'),
+        footer=document.getElementById('cart-footer'),empty=document.getElementById('cart-empty'),totalEl=document.getElementById('cart-total-amount');
+      const n=cart.reduce((s,i)=>s+i.quantity,0);badge.textContent=n;badge.classList.toggle('show',n>0);
+      if(!cart.length){if(empty)empty.style.display='block';footer.style.display='none';ic.querySelectorAll('.cart-item').forEach(e=>e.remove());return}
+      if(empty)empty.style.display='none';footer.style.display='block';ic.querySelectorAll('.cart-item').forEach(e=>e.remove());
+      let t=0;cart.forEach(item=>{t+=item.price*item.quantity;const el=document.createElement('div');el.className='cart-item';
+        el.innerHTML=`<div class="cart-item-image"><img src="${item.image_url}" alt="${item.name}" loading="lazy"></div><div class="cart-item-info"><h4>${item.name}</h4><div class="price">$${item.price.toFixed(2)}</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQuantity('${item.id}',-1)">−</button><span class="qty-value">${item.quantity}</span><button class="qty-btn" onclick="updateQuantity('${item.id}',1)">+</button><span class="cart-item-remove" onclick="removeFromCart('${item.id}')">✕ Remove</span></div></div>`;
+        ic.appendChild(el)});totalEl.textContent='$'+t.toFixed(2);
+    }
+    document.getElementById('cart-toggle').addEventListener('click',()=>{document.getElementById('cart-sidebar').classList.add('open');document.getElementById('cart-overlay').classList.add('open');document.body.style.overflow='hidden'});
+    document.getElementById('cart-overlay').addEventListener('click',()=>{document.getElementById('cart-sidebar').classList.remove('open');document.getElementById('cart-overlay').classList.remove('open');document.body.style.overflow=''});
+    document.getElementById('cart-close').addEventListener('click',()=>{document.getElementById('cart-sidebar').classList.remove('open');document.getElementById('cart-overlay').classList.remove('open');document.body.style.overflow=''});
+    document.getElementById('hamburger').addEventListener('click',function(){this.classList.toggle('active');document.getElementById('mobile-nav').classList.toggle('open')});
+    window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>10));
+    function showToast(msg,type='success'){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast '+type;t.innerHTML=`<span>${type==='success'?'✅':'❌'}</span> ${msg}`;c.appendChild(t);setTimeout(()=>t.remove(),3200)}
+
+    function generateSlug(title){return title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80)}
+
+    function validate(){
+      let valid=true;
+      const fields=[
+        {id:'post-title',err:'title-error',min:5,msg:'Title must be at least 5 characters'},
+        {id:'post-category',err:'category-error',min:1,msg:'Please select a category'},
+        {id:'post-excerpt',err:'excerpt-error',min:10,msg:'Excerpt must be at least 10 characters'},
+        {id:'post-content',err:'content-error',min:20,msg:'Content must be at least 20 characters'}
+      ];
+      fields.forEach(f=>{const v=document.getElementById(f.id).value.trim();document.getElementById(f.err).textContent='';if(v.length<f.min){document.getElementById(f.err).textContent=f.msg;valid=false}});
+      return valid;
+    }
+
+    document.getElementById('preview-btn').addEventListener('click',()=>{
+      const title=document.getElementById('post-title').value.trim(),cat=document.getElementById('post-category').value,content=document.getElementById('post-content').value.trim();
+      if(!title&&!content){showToast('Write something first!','error');return}
+      document.getElementById('preview-title').textContent=title||'Untitled Post';
+      document.getElementById('preview-meta').innerHTML=`<span class="blog-category-badge">${cat||'General'}</span> • ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}`;
+      document.getElementById('preview-content').innerHTML=content||'<p>No content yet.</p>';
+      const p=document.getElementById('post-preview');p.classList.add('show');p.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+
+    document.getElementById('post-form').addEventListener('submit',async e=>{
+      e.preventDefault();if(!validate())return;
+      const btn=document.getElementById('submit-btn');btn.disabled=true;btn.textContent='Publishing...';
+      const title=document.getElementById('post-title').value.trim(),category=document.getElementById('post-category').value,
+        excerpt=document.getElementById('post-excerpt').value.trim(),imageUrl=document.getElementById('post-image').value.trim(),
+        content=document.getElementById('post-content').value.trim(),slug=generateSlug(title);
+      try{
+        const{error}=await supabase.from('blog_posts').insert([{title,slug,category,excerpt,content,image_url:imageUrl||null,author:'Community Member'}]);
+        if(error)throw error;
+        showToast('Post published! 🎉');setTimeout(()=>window.location.href=`blog-post.html?slug=${slug}`,1500);
+      }catch(err){console.error(err);showToast('Failed to publish. Please try again.','error');btn.disabled=false;btn.textContent='📤 Publish Post'}
+    });
+
+    updateCartUI();
+  </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrickSpark Club — Monthly Subscription Box</title>
+  <meta name="description" content="Join BrickSpark Club for monthly exclusive building kits, challenges, and premium app features. Starting at $14.99/mo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .club-hero { background: linear-gradient(135deg, #c4161c 0%, #ff6b35 100%); color: #fff; padding: 100px 20px 80px; text-align: center; }
+    .club-hero .hero-badge { display: inline-block; background: rgba(255,255,255,.2); color: #fff; padding: 6px 18px; border-radius: 20px; font-size: .8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .club-hero h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+    @media (max-width: 600px) { .club-hero h1 { font-size: 2rem; } }
+    .club-hero p { font-size: 1.15rem; color: rgba(255,255,255,.9); max-width: 550px; margin: 0 auto; }
+
+    .club-includes { padding: 80px 20px; max-width: 900px; margin: 0 auto; text-align: center; }
+    .club-includes h2 { font-size: 2rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+    .club-includes .sub { color: var(--gray-600); margin-bottom: 48px; }
+    .inc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; text-align: left; }
+    @media (max-width: 600px) { .inc-grid { grid-template-columns: 1fr; } }
+    .inc-card { display: flex; align-items: flex-start; gap: 16px; padding: 24px; background: var(--white); border-radius: 14px; box-shadow: var(--shadow-sm); }
+    .inc-icon { font-size: 2rem; flex-shrink: 0; }
+    .inc-card h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .inc-card p { font-size: .9rem; color: var(--gray-600); line-height: 1.5; margin: 0; }
+
+    .club-pricing { padding: 80px 20px; background: var(--gray-50); text-align: center; }
+    .club-pricing h2 { font-size: 2rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+    .club-pricing .sub { color: var(--gray-600); margin-bottom: 48px; }
+    .price-cards { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; max-width: 700px; margin: 0 auto; }
+    .price-card { background: var(--white); border-radius: 18px; padding: 36px 32px; box-shadow: var(--shadow-md); flex: 1; min-width: 280px; max-width: 320px; text-align: center; position: relative; transition: transform var(--transition); }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.popular { border: 2px solid var(--red); }
+    .price-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--red); color: #fff; padding: 4px 18px; border-radius: 20px; font-size: .75rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+    .price-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .price-amount { font-size: 2.5rem; font-weight: 900; color: var(--red); line-height: 1; }
+    .price-period { font-size: .9rem; color: var(--gray-500); margin-bottom: 20px; }
+    .price-features { list-style: none; padding: 0; margin: 0 0 24px; }
+    .price-features li { font-size: .9rem; color: var(--gray-700); padding: 8px 0; border-bottom: 1px solid var(--gray-100); }
+    .price-features li::before { content: '✅ '; }
+    .price-cta { display: block; padding: 14px; background: var(--red); color: #fff; border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background var(--transition); font-size: 1rem; }
+    .price-cta:hover { background: var(--red-dark); }
+
+    .club-waitlist { padding: 80px 20px; text-align: center; }
+    .club-waitlist h2 { font-size: 1.8rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .club-waitlist p { color: var(--gray-600); margin-bottom: 28px; }
+    .wl-inline { display: flex; max-width: 460px; margin: 0 auto; gap: 12px; }
+    .wl-inline input { flex: 1; padding: 14px 18px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-family: 'Nunito', sans-serif; font-size: 1rem; }
+    .wl-inline input:focus { outline: none; border-color: var(--red); }
+    .wl-inline button { padding: 14px 28px; background: var(--red); color: #fff; border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; white-space: nowrap; transition: background var(--transition); }
+    .wl-inline button:hover { background: var(--red-dark); }
+    @media (max-width: 500px) { .wl-inline { flex-direction: column; } }
+
+    .club-faq { padding: 80px 20px; background: var(--gray-50); }
+    .club-faq h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--navy); margin-bottom: 40px; }
+    .faq-list { max-width: 700px; margin: 0 auto; }
+    .faq-item { background: var(--white); border-radius: 14px; margin-bottom: 12px; box-shadow: var(--shadow-sm); overflow: hidden; }
+    .faq-q { width: 100%; padding: 18px 24px; background: none; border: none; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; color: var(--navy); text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q:hover { color: var(--red); }
+    .faq-arrow { transition: transform .3s; font-size: .8rem; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a-inner { padding: 0 24px 18px; font-size: .9rem; color: var(--gray-600); line-height: 1.6; }
+    .faq-item.open .faq-a { max-height: 300px; }
+  </style>
+</head>
+<body>
+  <div id="page-loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity .4s"><div style="width:48px;height:48px;border:4px solid #f0f0f0;border-top:4px solid #c4161c;border-radius:50%;animation:spin .8s linear infinite"></div></div>
+  <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>Brick</span>Spark 🧱</a>
+      <div class="navbar-links">
+        <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+        <a href="club.html" class="active">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="cart-btn" id="cart-toggle" title="Cart">🛒<span class="cart-badge" id="cart-badge">0</span></div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+      <a href="club.html" class="active">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="club-hero">
+    <span class="hero-badge">Monthly Subscription</span>
+    <h1>Join the BrickSpark Club 🎁</h1>
+    <p>A surprise building kit delivered to your door every month. Exclusive sets, premium app features, and creative challenges — all in one box.</p>
+  </section>
+
+  <!-- What's Included -->
+  <section class="club-includes">
+    <h2>What's in the Box?</h2>
+    <p class="sub">Every month, Club members receive:</p>
+    <div class="inc-grid">
+      <div class="inc-card"><span class="inc-icon">📦</span><div><h3>Exclusive Mini-Sets</h3><p>Limited-edition building kits you can't buy in stores. Collectible themes that change each month.</p></div></div>
+      <div class="inc-card"><span class="inc-icon">📱</span><div><h3>App Premium Access</h3><p>Unlock all BrickSpark Studio premium features including AR scanning, exclusive missions, and digital badges.</p></div></div>
+      <div class="inc-card"><span class="inc-icon">🏆</span><div><h3>Building Challenges</h3><p>Monthly themed challenges with step-by-step cards. Compete with other Club members for bragging rights.</p></div></div>
+      <div class="inc-card"><span class="inc-icon">🎖️</span><div><h3>Member Badge</h3><p>Collectible metal pin badge each month. Build your collection and show off your Club status.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="club-pricing">
+    <h2>Choose Your Plan</h2>
+    <p class="sub">Cancel anytime. Free shipping on all Club boxes.</p>
+    <div class="price-cards">
+      <div class="price-card">
+        <h3>Monthly</h3>
+        <div class="price-amount">$14.99</div>
+        <div class="price-period">/month</div>
+        <ul class="price-features">
+          <li>Exclusive mini-set</li>
+          <li>Challenge card</li>
+          <li>Monthly badge</li>
+          <li>App premium access</li>
+          <li>Free shipping</li>
+        </ul>
+        <a href="#club-wl" class="price-cta">Join Waitlist</a>
+      </div>
+      <div class="price-card popular">
+        <span class="price-badge">Best Value — Save 28%</span>
+        <h3>Annual</h3>
+        <div class="price-amount">$129.99</div>
+        <div class="price-period">/year ($10.83/mo)</div>
+        <ul class="price-features">
+          <li>Everything in Monthly</li>
+          <li>2 bonus kits per year</li>
+          <li>Early access to new sets</li>
+          <li>Exclusive annual badge</li>
+          <li>Save $49.89/year</li>
+        </ul>
+        <a href="#club-wl" class="price-cta">Join Waitlist</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section class="club-waitlist" id="club-wl">
+    <h2>Be First in Line 🎉</h2>
+    <p>BrickSpark Club launches soon. Sign up to get notified and grab early-bird pricing.</p>
+    <form class="wl-inline waitlist-form" data-product="club">
+      <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address">
+      <button type="submit">Join Waitlist</button>
+    </form>
+  </section>
+
+  <!-- FAQ -->
+  <section class="club-faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list" id="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">When does BrickSpark Club launch? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">We're targeting Q1 2026 for our official launch. Join the waitlist to be the first to know and lock in early-bird pricing!</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I cancel anytime? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely! Monthly subscribers can cancel anytime before their next billing date. Annual subscribers can cancel for a prorated refund within the first 30 days.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What ages is the Club for? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">BrickSpark Club is designed for builders ages 5–12. Each month's kit includes builds appropriate for this age range with varying difficulty levels.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you ship internationally? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! We ship to the US, Canada, UK, Australia, and 30+ countries worldwide. Shipping is free for all Club subscriptions.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are the mini-sets compatible with regular BrickSpark kits? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! All Club exclusive mini-sets use the same brick system as our regular kits. Mix and match freely to create even bigger builds.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I gift a Club subscription? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Gift subscriptions will be available at launch! You'll be able to purchase 3-month, 6-month, or annual gift memberships — perfect for birthdays and holidays.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><h3><span class="red">Brick</span>Spark 🧱</h3><p>Premium building kits that ignite imagination and teach STEM skills. For curious kids aged 3–12.</p><div class="footer-social"><a href="#" title="Facebook">📘</a><a href="#" title="Instagram">📸</a><a href="#" title="Twitter">🐦</a><a href="#" title="YouTube">🎬</a></div></div>
+        <div class="footer-column"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html">Adventure Kits</a><a href="shop.html">STEM Kits</a></div>
+        <div class="footer-column"><h4>Learn</h4><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">BrickSpark Club</a><a href="schools.html">Schools</a></div>
+        <div class="footer-column"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 BrickSpark. All rights reserved. Made with ❤️ for young builders everywhere.</p></div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.parentElement;
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>

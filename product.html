@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — BrickSpark</title>
+  <meta name="description" content="View product details and add to cart. Premium building kits from BrickSpark.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧱</text></svg>">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar"><div class="container"><div class="nav-inner">
+  <a href="index.html" class="nav-logo">Brick<span>Spark</span> 🧱</a>
+  <ul class="nav-links"><li><a href="shop.html">Shop</a></li><li><a href="blog.html">Blog</a></li><li><a href="studio.html">Studio</a></li><li><a href="club.html">Club</a></li><li><a href="schools.html">Schools</a></li><li><a href="about.html">About</a></li></ul>
+  <div class="nav-right"><button class="cart-btn" onclick="openCart()">🛒 Cart <span class="cart-badge">0</span></button><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button></div>
+</div></div></nav>
+<div class="mobile-menu" id="mobile-menu"><a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a></div>
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar"><div class="cart-header"><h3>🛒 Your Cart</h3><button class="cart-close" onclick="closeCart()">✕</button></div><div class="cart-items" id="cart-items"></div><div class="cart-footer" id="cart-footer" style="display:none"><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:.9rem"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div><div style="display:flex;justify-content:space-between;margin-bottom:14px;font-size:.9rem;color:var(--muted)"><span>Shipping</span><span id="cart-shipping">$5.99</span></div><div class="cart-total"><span>Total</span><span id="cart-grand">$0.00</span></div><a href="checkout.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px">Checkout →</a></div></div>
+
+<!-- Product Detail -->
+<section class="product-detail">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav id="breadcrumb" style="margin-bottom:24px;font-size:.9rem;color:var(--gray-500)">
+      <a href="index.html" style="color:var(--gray-500)">Home</a> &gt;
+      <a href="shop.html" style="color:var(--gray-500)">Shop</a> &gt;
+      <span id="breadcrumb-name" style="color:var(--gray-700);font-weight:700">Loading...</span>
+    </nav>
+
+    <!-- Product Grid (skeleton while loading) -->
+    <div class="product-detail-grid" id="product-detail">
+      <div>
+        <div class="skeleton" style="width:100%;padding-top:75%;border-radius:16px"></div>
+      </div>
+      <div>
+        <div class="skeleton" style="height:20px;width:30%;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:36px;width:80%;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:20px;width:50%;margin-bottom:20px"></div>
+        <div class="skeleton" style="height:40px;width:35%;margin-bottom:20px"></div>
+        <div class="skeleton" style="height:80px;width:100%;margin-bottom:20px"></div>
+        <div class="skeleton" style="height:48px;width:100%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- You May Also Like -->
+<section class="related-products" id="related-section" style="display:none">
+  <div class="container">
+    <h2>You May Also Like</h2>
+    <div class="products-grid" id="related-products"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer><div class="container"><div class="footer-grid">
+  <div><div class="footer-logo">Brick<span>Spark</span> 🧱</div><p class="footer-about">Ignite imagination with every brick.</p><div class="social-links"><a class="social-link" href="#">📘</a><a class="social-link" href="#">📸</a><a class="social-link" href="#">🐦</a></div></div>
+  <div><h4>Shop</h4><ul class="footer-col"><li><a href="shop.html">All Kits</a></li></ul></div>
+  <div><h4>Company</h4><ul class="footer-col"><li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+  <div><h4>Support</h4><ul class="footer-col"><li><a href="contact.html">Contact</a></li></ul></div>
+</div><div class="footer-bottom"><p>© 2026 BrickSpark. All rights reserved.</p></div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/app.js"></script>
+<script>
+(function() {
+  const SUPABASE_URL = 'https://dppjohfplbznhggdemeu.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwcGpvaGZwbGJ6bmhnZ2RlbWV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzMwODYsImV4cCI6MjA5MDIwOTA4Nn0.05a8RlPvNlpDgarsjvvFDoPBUKDCOPUwMqquVoBH63o';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  let selectedQuantity = 1;
+
+  /* --- Cart helpers --- */
+  function getCart() { try { return JSON.parse(localStorage.getItem('brickspark_cart')) || []; } catch { return []; } }
+  function saveCart(c) { localStorage.setItem('brickspark_cart', JSON.stringify(c)); refreshCartUI(); }
+
+  function refreshCartUI() {
+    const cart = getCart();
+    const badge = document.querySelector('.cart-badge');
+    const itemsEl = document.getElementById('cart-items');
+    const footerEl = document.getElementById('cart-footer');
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const grandEl = document.getElementById('cart-grand');
+    const n = cart.reduce((s, i) => s + i.quantity, 0);
+    if (badge) badge.textContent = n;
+
+    if (!cart.length) {
+      itemsEl.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--gray-500)"><div style="font-size:3rem;margin-bottom:12px">🧱</div><p>Your cart is empty!</p></div>';
+      footerEl.style.display = 'none';
+      return;
+    }
+    footerEl.style.display = 'block';
+    let subtotal = 0;
+    let html = '';
+    cart.forEach(item => {
+      subtotal += item.price * item.quantity;
+      html += '<div style="display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--gray-100)">'
+        + '<div style="width:80px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--gray-100)">'
+        + (item.image_url ? '<img src="' + item.image_url + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover" loading="lazy">' : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem">🧱</div>')
+        + '</div><div style="flex:1"><h4 style="font-size:.95rem;font-weight:700;margin-bottom:4px">' + item.name + '</h4>'
+        + '<div style="color:var(--red);font-weight:800;font-size:.95rem">$' + item.price.toFixed(2) + '</div>'
+        + '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">'
+        + '<button class="qty-btn" onclick="updateCartQty(\'' + item.id + '\',-1)">−</button>'
+        + '<span style="font-weight:700;min-width:20px;text-align:center">' + item.quantity + '</span>'
+        + '<button class="qty-btn" onclick="updateCartQty(\'' + item.id + '\',1)">+</button>'
+        + '<span style="font-size:.8rem;color:var(--gray-500);cursor:pointer;margin-left:auto" onclick="removeCartItem(\'' + item.id + '\')">✕ Remove</span>'
+        + '</div></div></div>';
+    });
+    itemsEl.innerHTML = html;
+    const shipping = subtotal >= 50 ? 0 : 5.99;
+    subtotalEl.textContent = '$' + subtotal.toFixed(2);
+    document.getElementById('cart-shipping').textContent = shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2);
+    grandEl.textContent = '$' + (subtotal + shipping).toFixed(2);
+  }
+
+  window.addToCart = function(p) {
+    const c = getCart();
+    const e = c.find(i => i.id === p.id);
+    if (e) e.quantity += (p.quantity || 1); else c.push({ ...p, quantity: p.quantity || 1 });
+    saveCart(c);
+    if (window.showToast) showToast(p.name + ' added to cart!');
+  };
+  window.removeCartItem = function(id) { saveCart(getCart().filter(i => i.id !== id)); };
+  window.updateCartQty = function(id, d) {
+    const c = getCart(); const i = c.find(x => x.id === id);
+    if (i) { i.quantity += d; if (i.quantity <= 0) saveCart(c.filter(x => x.id !== id)); else saveCart(c); }
+  };
+  window.openCart = function() {
+    document.getElementById('cart-sidebar').classList.add('open');
+    document.getElementById('cart-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeCart = function() {
+    document.getElementById('cart-sidebar').classList.remove('open');
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  /* --- Hamburger --- */
+  document.getElementById('hamburger').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  /* --- Quantity control --- */
+  window.changeQty = function(d) {
+    selectedQuantity = Math.max(1, Math.min(10, selectedQuantity + d));
+    document.getElementById('qty-display').textContent = selectedQuantity;
+  };
+
+  /* --- Product card for related --- */
+  function productCardHTML(p) {
+    const sp = p.sale_price || p.price;
+    const hasSale = p.sale_price && p.sale_price < p.price;
+    let badge = '';
+    if (p.badge) {
+      const bc = p.badge.toLowerCase().includes('sale') ? 'sale' : p.badge.toLowerCase().includes('new') ? 'new' : p.badge.toLowerCase().includes('bundle') ? 'bundle' : '';
+      badge = '<span class="product-badge ' + bc + '">' + p.badge + '</span>';
+    }
+    const imgHTML = p.image_url
+      ? '<img src="' + p.image_url + '" alt="' + p.name + '" loading="lazy">'
+      : '<div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--gray-100)">🧱</div>';
+
+    return '<div class="product-card fade-in-up">'
+      + '<a href="product.html?slug=' + p.slug + '" class="product-card-image">' + badge + imgHTML + '</a>'
+      + '<div class="product-card-body">'
+      + '<h3><a href="product.html?slug=' + p.slug + '">' + p.name + '</a></h3>'
+      + '<div class="product-meta">Ages ' + (p.age_range || '3-12') + ' · ' + (p.piece_count || '—') + ' pieces</div>'
+      + '<div class="product-price"><span class="current">$' + sp.toFixed(2) + '</span>'
+      + (hasSale ? '<span class="original">$' + p.price.toFixed(2) + '</span>' : '') + '</div>'
+      + '<button class="btn btn-primary btn-sm" onclick=\'addToCart(' + JSON.stringify({ id: p.id, name: p.name, price: sp, image_url: p.image_url || '', slug: p.slug }) + ')\'>Add to Cart 🛒</button>'
+      + '</div></div>';
+  }
+
+  /* --- pageInit --- */
+  async function pageInit() {
+    const slug = new URLSearchParams(window.location.search).get('slug');
+    if (!slug) {
+      document.getElementById('product-detail').innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--gray-500);padding:60px 0">Product not found. <a href="shop.html" style="color:var(--red);font-weight:700">Back to Shop →</a></p>';
+      document.getElementById('breadcrumb-name').textContent = 'Not found';
+      return;
+    }
+
+    try {
+      const { data: product, error } = await sb.from('products').select('*').eq('slug', slug).single();
+      if (error) throw error;
+
+      const sp = product.sale_price || product.price;
+      const hasSale = product.sale_price && product.sale_price < product.price;
+      const savePercent = hasSale ? Math.round((1 - product.sale_price / product.price) * 100) : 0;
+
+      document.title = product.name + ' — BrickSpark';
+      document.getElementById('breadcrumb-name').textContent = product.name;
+
+      const imgHTML = product.image_url
+        ? '<img src="' + product.image_url + '" alt="' + product.name + '" style="width:100%;aspect-ratio:4/3;object-fit:cover">'
+        : '<div style="width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:8rem;background:var(--gray-100);border-radius:16px">🧱</div>';
+
+      document.getElementById('product-detail').innerHTML = ''
+        + '<div class="product-image-main">' + imgHTML + '</div>'
+        + '<div class="product-info">'
+
+        // Category badge
+        + (product.category ? '<span class="blog-category-badge" style="margin-bottom:12px">' + product.category + '</span>' : '')
+
+        // Age range and piece count
+        + '<div class="product-meta" style="margin-bottom:8px;font-size:.9rem;color:var(--gray-500)">'
+        + '🎯 Ages ' + (product.age_range || '3-12') + ' &nbsp;·&nbsp; 🧩 ' + (product.piece_count || '—') + ' pieces'
+        + '</div>'
+
+        // Product name
+        + '<h1>' + product.name + '</h1>'
+
+        // Star rating
+        + '<div style="display:flex;align-items:center;gap:8px;margin:8px 0 16px">'
+        + '<span style="color:#f59e0b;font-size:1.1rem">★★★★★</span>'
+        + '<span style="font-weight:700;font-size:.95rem;color:var(--gray-700)">4.9</span>'
+        + '<span style="color:var(--gray-400);font-size:.85rem">(127 reviews)</span>'
+        + '</div>'
+
+        // Price with sale
+        + '<div class="product-detail-price">'
+        + '<span class="current">$' + sp.toFixed(2) + '</span>'
+        + (hasSale ? '<span class="original">$' + product.price.toFixed(2) + '</span>' : '')
+        + (hasSale ? '<span style="background:var(--green);color:#fff;padding:4px 10px;border-radius:50px;font-size:.75rem;font-weight:800">SAVE ' + savePercent + '%</span>' : '')
+        + '</div>'
+
+        // Description
+        + '<div class="product-description">' + (product.description || product.excerpt || 'A premium BrickSpark building kit designed to spark creativity and teach STEM skills through play. Perfect for young builders who love to learn while they build.') + '</div>'
+
+        // Quantity selector
+        + '<div class="quantity-selector">'
+        + '<label>Quantity:</label>'
+        + '<button class="qty-btn" onclick="changeQty(-1)">−</button>'
+        + '<span class="qty-value" id="qty-display">1</span>'
+        + '<button class="qty-btn" onclick="changeQty(1)">+</button>'
+        + '</div>'
+
+        // Add to Cart button
+        + '<button class="btn btn-primary btn-lg" id="add-to-cart-btn" style="width:100%">Add to Cart 🛒</button>'
+
+        // Continue Shopping
+        + '<a href="shop.html" style="display:block;text-align:center;margin-top:12px;color:var(--gray-500);font-weight:700;font-size:.9rem">← Continue Shopping</a>'
+
+        // Trust badges
+        + '<div class="trust-badges">'
+        + '<div class="trust-badge"><span class="icon">🛡️</span> Safety Certified</div>'
+        + '<div class="trust-badge"><span class="icon">🔬</span> STEM Approved</div>'
+        + '<div class="trust-badge"><span class="icon">🚚</span> Free shipping $50+</div>'
+        + '</div>'
+
+        + '</div>';
+
+      // Add to cart click handler
+      document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+        addToCart({
+          id: product.id,
+          name: product.name,
+          price: sp,
+          image_url: product.image_url || '',
+          slug: product.slug,
+          quantity: selectedQuantity
+        });
+      });
+
+      // Load related products (same category, exclude current, limit 3)
+      if (product.category) {
+        try {
+          const { data: related } = await sb.from('products').select('*')
+            .eq('category', product.category)
+            .neq('id', product.id)
+            .limit(3);
+          if (related && related.length) {
+            document.getElementById('related-section').style.display = 'block';
+            document.getElementById('related-products').innerHTML = related.map(productCardHTML).join('');
+          }
+        } catch (e) { console.warn('Could not load related products:', e); }
+      }
+
+    } catch (e) {
+      console.error('Failed to load product:', e);
+      document.getElementById('product-detail').innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--gray-500);padding:60px 0">Product not found. <a href="shop.html" style="color:var(--red);font-weight:700">Back to Shop →</a></p>';
+      document.getElementById('breadcrumb-name').textContent = 'Not found';
+    }
+  }
+
+  refreshCartUI();
+  pageInit();
+})();
+</script>
+</body>
+</html>

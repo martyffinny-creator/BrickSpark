@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — BrickSpark</title>
+  <meta name="description" content="Complete your BrickSpark order securely.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .checkout-page { max-width: 1100px; margin: 0 auto; padding: 40px 20px 80px; }
+    .checkout-page h1 { font-size: 2rem; font-weight: 900; color: var(--navy); margin-bottom: 32px; }
+    .checkout-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+    @media (max-width: 768px) { .checkout-layout { grid-template-columns: 1fr; } }
+    .checkout-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 32px; }
+    .checkout-card h2 { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-row.full { grid-template-columns: 1fr; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label { font-size: .85rem; font-weight: 700; color: var(--gray-700); margin-bottom: 6px; }
+    .form-group input, .form-group select { padding: 12px 16px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: 'Nunito', sans-serif; font-size: .95rem; transition: border-color var(--transition); }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(196,22,28,.1); }
+    .form-group input.input-error { border-color: #ef4444; }
+    .form-error { font-size: .8rem; color: #ef4444; margin-top: 4px; display: none; }
+    .checkout-divider { border: none; border-top: 1px solid var(--gray-200); margin: 28px 0; }
+    .stripe-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; background: #635bff; color: #fff; border: none; border-radius: var(--radius-md); font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: background var(--transition); }
+    .stripe-btn:hover { background: #4f46e5; }
+    .stripe-btn:disabled { opacity: .6; cursor: not-allowed; }
+    .secure-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: .8rem; color: var(--gray-500); }
+    .processing-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,.92); z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
+    .processing-overlay.active { display: flex; }
+    .processing-overlay .spinner { width: 48px; height: 48px; border: 4px solid var(--gray-200); border-top: 4px solid var(--red); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 16px; }
+    .processing-overlay p { font-weight: 700; color: var(--navy); font-size: 1.1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ck-summary { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 28px; position: sticky; top: 90px; }
+    .ck-summary h2 { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
+    .ck-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+    .ck-item-emoji { font-size: 1.6rem; flex-shrink: 0; }
+    .ck-item-info { flex: 1; }
+    .ck-item-name { font-weight: 600; font-size: .9rem; color: var(--navy); }
+    .ck-item-meta { font-size: .8rem; color: var(--gray-500); }
+    .ck-item-total { font-weight: 700; color: var(--navy); }
+    .ck-totals { margin-top: 16px; }
+    .ck-row { display: flex; justify-content: space-between; font-size: .9rem; color: var(--gray-700); margin-bottom: 8px; }
+    .ck-row.final { font-weight: 900; font-size: 1.1rem; color: var(--navy); padding-top: 12px; border-top: 2px solid var(--gray-200); margin-top: 4px; }
+    .ck-edit { display: block; text-align: center; margin-top: 16px; color: var(--red); text-decoration: none; font-weight: 600; font-size: .85rem; }
+    .ck-edit:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div id="page-loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity .4s"><div style="width:48px;height:48px;border:4px solid #f0f0f0;border-top:4px solid #c4161c;border-radius:50%;animation:spin .8s linear infinite"></div></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>Brick</span>Spark 🧱</a>
+      <div class="navbar-links">
+        <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+        <a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="cart-btn" id="cart-toggle" title="Cart">🛒<span class="cart-badge" id="cart-badge">0</span></div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+      <a href="club.html">Club</a><a href="schools.html">Schools</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Processing overlay -->
+  <div class="processing-overlay" id="processing-overlay">
+    <div class="spinner"></div>
+    <p>Processing your order…</p>
+  </div>
+
+  <!-- Checkout Page -->
+  <section class="checkout-page">
+    <h1>🔒 Checkout</h1>
+    <div class="checkout-layout">
+      <div class="checkout-card">
+        <h2>📦 Shipping Information</h2>
+        <form id="checkout-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name *</label>
+              <input type="text" id="fname" name="fname" required autocomplete="given-name" placeholder="Jane">
+              <span class="form-error" id="fname-error">First name is required.</span>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name *</label>
+              <input type="text" id="lname" name="lname" required autocomplete="family-name" placeholder="Spark">
+              <span class="form-error" id="lname-error">Last name is required.</span>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder="jane@example.com">
+              <span class="form-error" id="email-error">Valid email is required.</span>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="address">Street Address *</label>
+              <input type="text" id="address" name="address" required autocomplete="street-address" placeholder="123 Builder Lane">
+              <span class="form-error" id="address-error">Address is required.</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City *</label>
+              <input type="text" id="city" name="city" required autocomplete="address-level2" placeholder="Brickville">
+              <span class="form-error" id="city-error">City is required.</span>
+            </div>
+            <div class="form-group">
+              <label for="zip">Postal / ZIP Code *</label>
+              <input type="text" id="zip" name="zip" required autocomplete="postal-code" placeholder="A1B 2C3">
+              <span class="form-error" id="zip-error">Postal code is required.</span>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="country">Country *</label>
+              <select id="country" name="country" required autocomplete="country">
+                <option value="">Select country…</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="AU">Australia</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="JP">Japan</option>
+                <option value="OTHER">Other</option>
+              </select>
+              <span class="form-error" id="country-error">Please select a country.</span>
+            </div>
+          </div>
+          <hr class="checkout-divider">
+          <h2>💳 Payment</h2>
+          <button type="submit" class="stripe-btn" id="stripe-pay-btn">
+            💳 Pay with Stripe
+          </button>
+          <div class="secure-note">🔒 Secured by Stripe — your details never touch our servers</div>
+        </form>
+      </div>
+
+      <div class="ck-summary">
+        <h2>Order Summary</h2>
+        <div id="ck-items"></div>
+        <div class="ck-totals">
+          <div class="ck-row"><span>Subtotal</span><span id="ck-subtotal">$0.00</span></div>
+          <div class="ck-row"><span>Shipping</span><span id="ck-shipping">$5.99</span></div>
+          <div class="ck-row final"><span>Total</span><span id="ck-total">$0.00</span></div>
+        </div>
+        <a href="cart.html" class="ck-edit">← Edit Cart</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><h3><span class="red">Brick</span>Spark 🧱</h3><p>Premium building kits that ignite imagination and teach STEM skills. For curious kids aged 3–12.</p></div>
+        <div class="footer-column"><h4>Shop</h4><a href="shop.html">All Products</a></div>
+        <div class="footer-column"><h4>Learn</h4><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">Club</a><a href="schools.html">Schools</a></div>
+        <div class="footer-column"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 BrickSpark. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    (function () {
+      var cart = BrickSparkCart.getCart();
+      if (cart.length === 0) { window.location.href = 'cart.html'; return; }
+
+      // Render summary
+      var itemsEl = document.getElementById('ck-items');
+      itemsEl.innerHTML = cart.map(function(item) {
+        return '<div class="ck-item">' +
+          '<span class="ck-item-emoji">' + item.emoji + '</span>' +
+          '<div class="ck-item-info"><div class="ck-item-name">' + item.name + '</div>' +
+          '<div class="ck-item-meta">Qty: ' + item.quantity + ' × $' + item.price.toFixed(2) + '</div></div>' +
+          '<span class="ck-item-total">$' + (item.price * item.quantity).toFixed(2) + '</span></div>';
+      }).join('');
+
+      var subtotal = BrickSparkCart.getTotal();
+      var shipping = subtotal >= 50 ? 0 : 5.99;
+      var total = subtotal + shipping;
+      document.getElementById('ck-subtotal').textContent = '$' + subtotal.toFixed(2);
+      document.getElementById('ck-shipping').textContent = shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2);
+      document.getElementById('ck-total').textContent = '$' + total.toFixed(2);
+
+      // Form
+      var form = document.getElementById('checkout-form');
+      var payBtn = document.getElementById('stripe-pay-btn');
+
+      function validateField(id, test) {
+        var input = document.getElementById(id);
+        var error = document.getElementById(id + '-error');
+        var valid = test(input.value.trim());
+        input.classList.toggle('input-error', !valid);
+        if (error) error.style.display = valid ? 'none' : 'block';
+        return valid;
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var valid = true;
+        valid = validateField('fname', function(v) { return v.length > 0; }) && valid;
+        valid = validateField('lname', function(v) { return v.length > 0; }) && valid;
+        valid = validateField('email', function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }) && valid;
+        valid = validateField('address', function(v) { return v.length > 0; }) && valid;
+        valid = validateField('city', function(v) { return v.length > 0; }) && valid;
+        valid = validateField('zip', function(v) { return v.length > 0; }) && valid;
+        valid = validateField('country', function(v) { return v.length > 0; }) && valid;
+
+        if (!valid) { showToast('Please fill in all required fields.', 'error'); return; }
+
+        document.getElementById('processing-overlay').classList.add('active');
+        payBtn.disabled = true;
+
+        var payload = {
+          items: cart.map(function(i) { return { id: i.id, name: i.name, price: i.price, qty: i.quantity }; }),
+          customerEmail: document.getElementById('email').value.trim(),
+          customerName: document.getElementById('fname').value.trim() + ' ' + document.getElementById('lname').value.trim(),
+          address: {
+            line1: document.getElementById('address').value.trim(),
+            city: document.getElementById('city').value.trim(),
+            postal_code: document.getElementById('zip').value.trim(),
+            country: document.getElementById('country').value
+          }
+        };
+
+        try {
+          var res = await fetch('/.netlify/functions/create-checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          var data = await res.json();
+          if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout session.');
+          BrickSparkCart.clearCart();
+          window.location.href = data.url;
+        } catch (err) {
+          console.error('Checkout error:', err);
+          document.getElementById('processing-overlay').classList.remove('active');
+          payBtn.disabled = false;
+          showToast(err.message || 'Checkout failed. Please try again.', 'error');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

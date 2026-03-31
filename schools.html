@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrickSpark @ School — STEM Kits for Classrooms</title>
+  <meta name="description" content="STEM building kits designed for classrooms. Curriculum-aligned, bulk pricing, teacher guides. Perfect for daycares and elementary schools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .schools-hero { background: linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #44318d 100%); color: #fff; padding: 100px 20px 80px; text-align: center; }
+    .schools-hero .hero-badge { display: inline-block; background: rgba(255,255,255,.15); color: #fff; padding: 6px 18px; border-radius: 20px; font-size: .8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .schools-hero h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+    .schools-hero h1 span { color: #ffd93d; }
+    @media (max-width: 600px) { .schools-hero h1 { font-size: 2rem; } }
+    .schools-hero p { font-size: 1.15rem; color: rgba(255,255,255,.85); max-width: 600px; margin: 0 auto; }
+
+    .schools-benefits { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+    .schools-benefits h2 { text-align: center; font-size: 2rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+    .schools-benefits .sub { text-align: center; color: var(--gray-600); margin-bottom: 48px; }
+    .ben-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    @media (max-width: 768px) { .ben-grid { grid-template-columns: 1fr; } }
+    .ben-card { background: var(--white); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm); text-align: center; transition: transform var(--transition); }
+    .ben-card:hover { transform: translateY(-4px); }
+    .ben-icon { font-size: 2.5rem; margin-bottom: 14px; display: block; }
+    .ben-card h3 { font-size: 1.05rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .ben-card p { font-size: .9rem; color: var(--gray-600); line-height: 1.5; }
+
+    .schools-pricing { padding: 80px 20px; background: var(--gray-50); text-align: center; }
+    .schools-pricing h2 { font-size: 2rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+    .schools-pricing .sub { color: var(--gray-600); margin-bottom: 48px; }
+    .sp-cards { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+    .sp-card { background: var(--white); border-radius: 18px; padding: 36px 28px; box-shadow: var(--shadow-md); flex: 1; min-width: 260px; max-width: 300px; text-align: center; transition: transform var(--transition); }
+    .sp-card:hover { transform: translateY(-4px); }
+    .sp-card.featured { border: 2px solid var(--red); }
+    .sp-badge { display: inline-block; background: var(--red); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: .7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; }
+    .sp-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .sp-card .kits { font-size: .85rem; color: var(--gray-500); margin-bottom: 16px; }
+    .sp-amount { font-size: 2.5rem; font-weight: 900; color: var(--red); line-height: 1; }
+    .sp-unit { font-size: .8rem; color: var(--gray-500); margin-bottom: 20px; }
+    .sp-features { list-style: none; padding: 0; margin: 0 0 24px; text-align: left; }
+    .sp-features li { font-size: .85rem; color: var(--gray-700); padding: 8px 0; border-bottom: 1px solid var(--gray-100); }
+    .sp-features li::before { content: '✅ '; }
+    .sp-cta { display: block; width: 100%; padding: 14px; background: var(--red); color: #fff; border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background var(--transition); font-size: .95rem; }
+    .sp-cta:hover { background: var(--red-dark); }
+
+    .schools-test { padding: 80px 20px; max-width: 800px; margin: 0 auto; }
+    .schools-test h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--navy); margin-bottom: 40px; }
+    .test-card { background: var(--white); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm); margin-bottom: 20px; }
+    .test-stars { color: #ffd93d; font-size: 1.1rem; margin-bottom: 12px; }
+    .test-text { font-size: 1rem; color: var(--gray-800); line-height: 1.6; font-style: italic; margin-bottom: 14px; }
+    .test-author { display: flex; align-items: center; gap: 10px; }
+    .test-avatar { width: 40px; height: 40px; background: var(--gray-100); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .test-name { font-weight: 700; color: var(--navy); font-size: .9rem; }
+    .test-role { font-size: .8rem; color: var(--gray-500); }
+
+    .schools-contact { padding: 80px 20px; background: var(--gray-50); }
+    .schools-contact h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .schools-contact .sub { text-align: center; color: var(--gray-600); margin-bottom: 40px; }
+    .quote-form { max-width: 600px; margin: 0 auto; background: var(--white); padding: 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+    .quote-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .quote-form .form-row.full { grid-template-columns: 1fr; }
+    @media (max-width: 500px) { .quote-form .form-row { grid-template-columns: 1fr; } }
+    .quote-form .form-group { display: flex; flex-direction: column; }
+    .quote-form label { font-size: .85rem; font-weight: 700; color: var(--gray-700); margin-bottom: 6px; }
+    .quote-form input, .quote-form select, .quote-form textarea { padding: 12px 16px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: 'Nunito', sans-serif; font-size: .95rem; transition: border-color var(--transition); }
+    .quote-form input:focus, .quote-form select:focus, .quote-form textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(196,22,28,.1); }
+    .quote-form textarea { resize: vertical; min-height: 100px; }
+    .quote-submit { display: block; width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; border-radius: var(--radius-md); font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background var(--transition); margin-top: 8px; }
+    .quote-submit:hover { background: var(--red-dark); }
+  </style>
+</head>
+<body>
+  <div id="page-loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity .4s"><div style="width:48px;height:48px;border:4px solid #f0f0f0;border-top:4px solid #c4161c;border-radius:50%;animation:spin .8s linear infinite"></div></div>
+  <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>Brick</span>Spark 🧱</a>
+      <div class="navbar-links">
+        <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+        <a href="club.html">Club</a><a href="schools.html" class="active">Schools</a><a href="about.html">About</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="cart-btn" id="cart-toggle" title="Cart">🛒<span class="cart-badge" id="cart-badge">0</span></div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="shop.html">Shop</a><a href="blog.html">Blog</a><a href="studio.html">Studio</a>
+      <a href="club.html">Club</a><a href="schools.html" class="active">Schools</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="schools-hero">
+    <span class="hero-badge">B2B &amp; Education</span>
+    <h1>BrickSpark @ <span>School</span></h1>
+    <p>STEM building kits designed for classrooms. Curriculum-aligned, hands-on, and loved by teachers and students alike.</p>
+  </section>
+
+  <!-- Benefits -->
+  <section class="schools-benefits">
+    <h2>Why Educators Choose BrickSpark</h2>
+    <p class="sub">Everything you need to bring hands-on STEM learning to your classroom.</p>
+    <div class="ben-grid">
+      <div class="ben-card"><span class="ben-icon">📚</span><h3>Curriculum-Aligned</h3><p>Every kit maps to national STEM standards (NGSS, Common Core Math). Lesson plans and learning objectives included.</p></div>
+      <div class="ben-card"><span class="ben-icon">💰</span><h3>Bulk Pricing</h3><p>Save up to 50% with classroom and school packs. Volume discounts for districts available on request.</p></div>
+      <div class="ben-card"><span class="ben-icon">📋</span><h3>Teacher Guides</h3><p>Detailed educator guides with differentiated activities, assessment rubrics, and extension challenges for every kit.</p></div>
+      <div class="ben-card"><span class="ben-icon">🧒</span><h3>Ages 3–12</h3><p>Kits for every grade level from pre-K through 6th grade. Age-appropriate builds that grow with your students.</p></div>
+      <div class="ben-card"><span class="ben-icon">🔒</span><h3>Safety Certified</h3><p>All products exceed ASTM F963 and EN71 safety standards. Non-toxic, BPA-free ABS plastic.</p></div>
+      <div class="ben-card"><span class="ben-icon">🤝</span><h3>Dedicated Support</h3><p>Assigned account manager for schools. Quick reorder, replacement parts program, and professional development resources.</p></div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="schools-pricing">
+    <h2>Classroom Packs</h2>
+    <p class="sub">Choose the right pack for your school. All packs include teacher guides and free shipping.</p>
+    <div class="sp-cards">
+      <div class="sp-card">
+        <h3>Starter Pack</h3>
+        <div class="kits">10 Kits</div>
+        <div class="sp-amount">$199</div>
+        <div class="sp-unit">$19.90 per kit</div>
+        <ul class="sp-features">
+          <li>10 assorted BrickSpark kits</li>
+          <li>1 Teacher guide binder</li>
+          <li>Lesson plan templates</li>
+          <li>Storage container</li>
+          <li>Free standard shipping</li>
+        </ul>
+        <a href="#quote-section" class="sp-cta">Request Quote</a>
+      </div>
+      <div class="sp-card featured">
+        <span class="sp-badge">Most Popular</span>
+        <h3>Classroom Pack</h3>
+        <div class="kits">30 Kits</div>
+        <div class="sp-amount">$499</div>
+        <div class="sp-unit">$16.63 per kit</div>
+        <ul class="sp-features">
+          <li>30 assorted BrickSpark kits</li>
+          <li>3 Teacher guide binders</li>
+          <li>Full curriculum package</li>
+          <li>Assessment rubrics</li>
+          <li>3 storage containers</li>
+          <li>Priority shipping</li>
+        </ul>
+        <a href="#quote-section" class="sp-cta">Request Quote</a>
+      </div>
+      <div class="sp-card">
+        <h3>School Pack</h3>
+        <div class="kits">100 Kits</div>
+        <div class="sp-amount">$1,499</div>
+        <div class="sp-unit">$14.99 per kit</div>
+        <ul class="sp-features">
+          <li>100 assorted BrickSpark kits</li>
+          <li>10 Teacher guide binders</li>
+          <li>Full K–6 curriculum</li>
+          <li>PD workshop (virtual)</li>
+          <li>10 storage containers</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <a href="#quote-section" class="sp-cta">Request Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="schools-test">
+    <h2>What Educators Say 💬</h2>
+    <div class="test-card">
+      <div class="test-stars">⭐⭐⭐⭐⭐</div>
+      <p class="test-text">"I ordered the BrickSpark @ School classroom pack for my students and it's transformed our STEM corner. The kids are more engaged, collaborative, and creative. I've already recommended it to every teacher in my school."</p>
+      <div class="test-author"><div class="test-avatar">👩‍🏫</div><div><div class="test-name">David K.</div><div class="test-role">Grade 2 Teacher</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">⭐⭐⭐⭐⭐</div>
+      <p class="test-text">"The teacher guides are incredibly well thought out. I can run a full STEM lesson in 45 minutes with zero prep. My students beg for 'brick time' — that's how you know it works."</p>
+      <div class="test-author"><div class="test-avatar">👨‍🏫</div><div><div class="test-name">Rachel T.</div><div class="test-role">Grade 4 STEM Coordinator</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">⭐⭐⭐⭐⭐</div>
+      <p class="test-text">"We purchased the School Pack for our entire K–5 program. The curriculum alignment is spot-on and the assessment rubrics save us hours. BrickSpark made hands-on STEM affordable and manageable."</p>
+      <div class="test-author"><div class="test-avatar">🏫</div><div><div class="test-name">Principal Chen</div><div class="test-role">Maple Ridge Elementary</div></div></div>
+    </div>
+  </section>
+
+  <!-- Contact/Quote Form -->
+  <section class="schools-contact" id="quote-section">
+    <h2>Request a Quote 📝</h2>
+    <p class="sub">Fill in the form below and we'll get back to you within 1 business day.</p>
+    <form class="quote-form" id="quote-form" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="q-name">Your Name *</label>
+          <input type="text" id="q-name" name="name" required placeholder="Jane Smith">
+        </div>
+        <div class="form-group">
+          <label for="q-email">Email *</label>
+          <input type="email" id="q-email" name="email" required placeholder="jane@school.edu">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="q-school">School / Organization *</label>
+          <input type="text" id="q-school" name="school" required placeholder="Maple Ridge Elementary">
+        </div>
+        <div class="form-group">
+          <label for="q-role">Your Role</label>
+          <input type="text" id="q-role" name="role" placeholder="Teacher, Principal, etc.">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label for="q-pack">Interested In *</label>
+          <select id="q-pack" name="pack" required>
+            <option value="">Select a pack…</option>
+            <option value="starter">Starter Pack (10 kits — $199)</option>
+            <option value="classroom">Classroom Pack (30 kits — $499)</option>
+            <option value="school">School Pack (100 kits — $1,499)</option>
+            <option value="custom">Custom / District Order</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label for="q-message">Tell us more</label>
+          <textarea id="q-message" name="message" placeholder="Number of classrooms, grade levels, specific kits of interest, timeline…"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="quote-submit" id="quote-submit">Submit Quote Request</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><h3><span class="red">Brick</span>Spark 🧱</h3><p>Premium building kits that ignite imagination and teach STEM skills. For curious kids aged 3–12.</p><div class="footer-social"><a href="#" title="Facebook">📘</a><a href="#" title="Instagram">📸</a><a href="#" title="Twitter">🐦</a><a href="#" title="YouTube">🎬</a></div></div>
+        <div class="footer-column"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html">Adventure Kits</a><a href="shop.html">STEM Kits</a></div>
+        <div class="footer-column"><h4>Learn</h4><a href="blog.html">Blog</a><a href="studio.html">Studio App</a><a href="club.html">BrickSpark Club</a><a href="schools.html">Schools</a></div>
+        <div class="footer-column"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 BrickSpark. All rights reserved. Made with ❤️ for young builders everywhere.</p></div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('quote-form');
+      var submitBtn = document.getElementById('quote-submit');
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        var name = document.getElementById('q-name').value.trim();
+        var email = document.getElementById('q-email').value.trim();
+        var school = document.getElementById('q-school').value.trim();
+        var role = document.getElementById('q-role').value.trim();
+        var pack = document.getElementById('q-pack').value;
+        var message = document.getElementById('q-message').value.trim();
+
+        if (!name || !email || !school || !pack) {
+          showToast('Please fill in all required fields.', 'error');
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showToast('Please enter a valid email address.', 'error');
+          return;
+        }
+
+        submitBtn.textContent = 'Submitting…';
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+
+        try {
+          var supabase = window.BrickSparkSupabase;
+          if (supabase) {
+            var result = await supabase
+              .from('orders')
+              .insert([{
+                customer_name: name,
+                customer_email: email,
+                status: 'b2b_inquiry',
+                notes: JSON.stringify({ school: school, role: role, pack: pack, message: message }),
+                created_at: new Date().toISOString()
+              }]);
+            if (result.error) throw result.error;
+          }
+          showToast('Quote request submitted! We\'ll be in touch within 1 business day. 🎉', 'success');
+          form.reset();
+        } catch (err) {
+          console.error('Quote form error:', err);
+          showToast('Something went wrong. Please email us at schools@brickspark.com.', 'error');
+        } finally {
+          submitBtn.textContent = 'Submit Quote Request';
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
