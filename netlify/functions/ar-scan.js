@@ -43,8 +43,8 @@ exports.handler = async (event) => {
     .eq('product_slug', productSlug)
     .single();
 
-  // Log the scan
-  await supabase.from('ar_scans').insert([{ product_slug: productSlug, scanned_at: new Date().toISOString() }]).catch(() => {});
+  // Log the scan (fire and forget)
+  try { await supabase.from('ar_scans').insert([{ product_slug: productSlug, scanned_at: new Date().toISOString() }]); } catch(_) {}
 
   // Get product info
   const { data: product } = await supabase
