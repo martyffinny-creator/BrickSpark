@@ -948,7 +948,7 @@
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
       </div>
     </div>
-    <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav" id="mobile-menu">
       <a href="shop.html">Shop</a>
       <a href="blog.html">Blog</a>
       <a href="studio.html" class="active">Studio</a>
@@ -1119,6 +1119,58 @@
       </div>
     </div>
   </section>
+
+  <!-- ============================================================
+       AR SCANNER (BETA)
+  ============================================================ -->
+  <section style="background:#fff;padding:80px 20px;text-align:center">
+    <div style="max-width:700px;margin:0 auto">
+      <span style="color:#c4161c;font-size:.78rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase">Live Beta</span>
+      <h2 style="font-size:2.2rem;font-weight:900;color:#1a1a2e;margin:10px 0 14px">📸 Try the AR Scanner</h2>
+      <p style="color:#666;font-size:1.05rem;max-width:520px;margin:0 auto 36px;line-height:1.6">Point your camera at your BrickSpark kit, select the set, and instantly get your step-by-step AR build guide — right in your browser.</p>
+      <button id="ar-open-btn" style="display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:linear-gradient(135deg,#c4161c,#a01218);color:#fff;border:none;border-radius:50px;font-family:Nunito,sans-serif;font-size:1.05rem;font-weight:800;cursor:pointer;box-shadow:0 6px 24px rgba(196,22,28,.35);transition:all .3s">
+        📸 Launch AR Scanner
+      </button>
+      <p style="font-size:.8rem;color:#999;margin-top:12px">Works in Chrome & Safari · No app download needed</p>
+    </div>
+  </section>
+
+  <!-- AR Modal -->
+  <div id="ar-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);flex-direction:column;align-items:center;justify-content:center;padding:20px">
+    <button id="ar-close-btn" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;width:44px;height:44px;border-radius:50%;cursor:pointer">✕</button>
+    <div style="width:100%;max-width:400px;position:relative">
+      <!-- Camera feed -->
+      <div style="position:relative;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:9/16;max-height:60vh">
+        <video id="ar-video" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover"></video>
+        <!-- Scan overlay -->
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none">
+          <div style="width:200px;height:200px;border:2px solid rgba(167,139,250,.8);border-radius:20px;position:relative;animation:scanPulse 2s ease-in-out infinite">
+            <div style="position:absolute;top:-3px;left:-3px;width:24px;height:24px;border-top:3px solid #a78bfa;border-left:3px solid #a78bfa;border-radius:4px 0 0 0"></div>
+            <div style="position:absolute;bottom:-3px;right:-3px;width:24px;height:24px;border-bottom:3px solid #a78bfa;border-right:3px solid #a78bfa;border-radius:0 0 4px 0"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3rem">🧱</div>
+          </div>
+          <div id="ar-status-text" style="color:#a78bfa;font-weight:800;font-size:.85rem;margin-top:14px;letter-spacing:1px;text-transform:uppercase">Point camera at your BrickSpark kit</div>
+        </div>
+      </div>
+      <!-- Controls -->
+      <div style="margin-top:16px">
+        <select id="ar-kit-select" style="width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-family:Nunito,sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px">
+          <option value="">— Select your BrickSpark kit —</option>
+          <option value="dino-dig-adventure">🦕 Dino Dig Adventure</option>
+          <option value="space-station-alpha">🚀 Space Station Alpha</option>
+          <option value="enchanted-castle">🏰 Enchanted Castle</option>
+          <option value="ocean-explorer">🐠 Ocean Explorer</option>
+          <option value="city-builder-starter">🏙️ City Builder Starter</option>
+          <option value="robot-workshop">🤖 Robot Workshop</option>
+          <option value="jungle-safari">🦁 Jungle Safari</option>
+          <option value="brickspark-mega-mix">🌈 BrickSpark Mega Mix</option>
+        </select>
+        <button id="ar-scan-btn" style="width:100%;padding:16px;background:linear-gradient(135deg,#c4161c,#a01218);color:#fff;border:none;border-radius:12px;font-family:Nunito,sans-serif;font-size:1rem;font-weight:800;cursor:pointer">📸 Scan Kit</button>
+      </div>
+      <!-- Result panel -->
+      <div id="ar-result" style="display:none;margin-top:14px;max-height:200px;overflow-y:auto"></div>
+    </div>
+  </div>
 
   <!-- ============================================================
        FEATURES
@@ -1401,10 +1453,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/cart.js"></script>
   <script>
-    /* ---- Countdown Timer (July 1, 2026) ---- */
-    (function () {
+    window.pageInit = function() {
+      /* Countdown Timer (July 1, 2026) */
       var target = new Date('2026-07-01T00:00:00').getTime();
       function update() {
         var diff = Math.max(0, target - Date.now());
@@ -1412,32 +1463,121 @@
         var h = Math.floor((diff % 864e5) / 36e5);
         var m = Math.floor((diff % 36e5) / 6e4);
         var s = Math.floor((diff % 6e4) / 1e3);
-        document.getElementById('cd-days').textContent  = String(d).padStart(3, '0');
-        document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
-        document.getElementById('cd-mins').textContent  = String(m).padStart(2, '0');
-        document.getElementById('cd-secs').textContent  = String(s).padStart(2, '0');
+        var days = document.getElementById('cd-days');
+        var hours = document.getElementById('cd-hours');
+        var mins = document.getElementById('cd-mins');
+        var secs = document.getElementById('cd-secs');
+        if (days) days.textContent = String(d).padStart(3, '0');
+        if (hours) hours.textContent = String(h).padStart(2, '0');
+        if (mins) mins.textContent = String(m).padStart(2, '0');
+        if (secs) secs.textContent = String(s).padStart(2, '0');
       }
       update();
       setInterval(update, 1000);
-    })();
 
-    /* ---- FAQ Accordion ---- */
-    document.querySelectorAll('.faq-question').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var item = this.closest('.faq-item');
-        var isOpen = item.classList.contains('open');
-        // Close all
-        document.querySelectorAll('.faq-item').forEach(function (el) {
-          el.classList.remove('open');
-          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      /* FAQ Accordion */
+      document.querySelectorAll('.faq-question').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = this.closest('.faq-item');
+          var isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(function (el) {
+            el.classList.remove('open');
+            el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          });
+          if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
         });
-        // Toggle current
-        if (!isOpen) {
-          item.classList.add('open');
-          this.setAttribute('aria-expanded', 'true');
-        }
       });
-    });
+
+      /* AR Scanner */
+      initARScanner();
+    };
+
+    /* ---- AR Scanner ---- */
+    function initARScanner() {
+      var openBtn = document.getElementById('ar-open-btn');
+      var modal = document.getElementById('ar-modal');
+      var closeBtn = document.getElementById('ar-close-btn');
+      var scanBtn = document.getElementById('ar-scan-btn');
+      var kitSelect = document.getElementById('ar-kit-select');
+      var video = document.getElementById('ar-video');
+      var resultPanel = document.getElementById('ar-result');
+      var statusText = document.getElementById('ar-status-text');
+      var stream = null;
+
+      if (!openBtn || !modal) return;
+
+      openBtn.addEventListener('click', function() {
+        modal.style.display = 'flex';
+        startCamera();
+      });
+
+      closeBtn && closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        stopCamera();
+      });
+
+      function startCamera() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then(function(s) { stream = s; video.srcObject = s; video.play(); })
+            .catch(function() { if (statusText) statusText.textContent = 'Camera not available — select a kit below to preview'; });
+        } else {
+          if (statusText) statusText.textContent = 'Camera not supported — select a kit below to preview';
+        }
+      }
+
+      function stopCamera() {
+        if (stream) { stream.getTracks().forEach(function(t) { t.stop(); }); stream = null; }
+      }
+
+      scanBtn && scanBtn.addEventListener('click', async function() {
+        var slug = kitSelect ? kitSelect.value : '';
+        if (!slug) { window.showToast('Please select a BrickSpark kit first!', 'warning'); return; }
+        scanBtn.disabled = true;
+        scanBtn.textContent = '🔍 Scanning...';
+        if (statusText) statusText.textContent = '🔍 Scanning bricks...';
+        if (resultPanel) resultPanel.style.display = 'none';
+
+        // Simulate scan delay then fetch AR model
+        await new Promise(r => setTimeout(r, 1800));
+
+        try {
+          var res = await fetch('/.netlify/functions/ar-scan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productSlug: slug })
+          });
+          var data = await res.json();
+          if (res.ok && data) {
+            showARResult(data);
+          } else {
+            if (statusText) statusText.textContent = '⚠️ Kit not found — try another';
+          }
+        } catch(e) {
+          if (statusText) statusText.textContent = '⚠️ Scan failed — check connection';
+        }
+        scanBtn.disabled = false;
+        scanBtn.textContent = '📸 Scan Kit';
+      });
+
+      function showARResult(data) {
+        if (statusText) statusText.textContent = '✅ MATCH FOUND!';
+        if (!resultPanel) return;
+        var steps = data.build_steps || [];
+        var stepsHTML = steps.map(function(s, i) {
+          return '<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)">'
+            + '<div style="background:rgba(196,22,28,.3);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0">' + (i+1) + '</div>'
+            + '<div><div style="font-weight:700;color:#fff">' + (s.emoji||'🧱') + ' ' + (s.desc||s.description||'Step '+(i+1)) + '</div></div>'
+            + '</div>';
+        }).join('');
+        resultPanel.innerHTML = '<div style="background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid rgba(196,22,28,.4);border-radius:16px;padding:20px">'
+          + '<div style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:6px">' + (data.model_emoji||'🧱') + ' ' + (data.model_name||data.name||'BrickSpark Kit') + '</div>'
+          + '<div style="font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:14px">AR Build Guide</div>'
+          + (stepsHTML || '<div style="color:rgba(255,255,255,.5);font-size:.85rem">No steps available yet.</div>')
+          + '</div>';
+        resultPanel.style.display = 'block';
+      }
+    }
   </script>
 </body>
 </html>
