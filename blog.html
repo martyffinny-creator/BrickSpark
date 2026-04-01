@@ -204,7 +204,7 @@
   };
 
   /* --- pageInit --- */
-  async function pageInit() {
+  async window.pageInit = async function() {
     try {
       const { data, error } = await sb.from('blog_posts').select('*').order('created_at', { ascending: false });
       if (error) throw error;

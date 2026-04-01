@@ -181,7 +181,7 @@
   };
 
   /* --- pageInit --- */
-  async function pageInit() {
+  async window.pageInit = async function() {
     const slug = new URLSearchParams(window.location.search).get('slug');
     if (!slug) {
       document.getElementById('blog-post').innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--gray-500)">'

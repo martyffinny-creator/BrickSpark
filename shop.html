@@ -209,7 +209,7 @@
   };
 
   /* --- pageInit --- */
-  async function pageInit() {
+  async window.pageInit = async function() {
     try {
       const { data, error } = await sb.from('products').select('*');
       if (error) throw error;
