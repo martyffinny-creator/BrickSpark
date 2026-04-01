@@ -2,8 +2,8 @@
   "name": "brickspark",
   "version": "1.0.0",
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0",
+    "@supabase/supabase-js": "^2.101.1",
     "node-fetch": "^2.6.7",
-    "stripe": "^14.0.0"
+    "stripe": "^14.25.0"
   }
 }
