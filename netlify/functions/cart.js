@@ -26,7 +26,7 @@ exports.handler = async (event, context) => {
       // Check if product exists
       const { count, error: productError } = await supabaseClient
         .from('products')
-        .select('*', { count: 'exact' })
+        .select('*', { count: 'exact', head: true })
         .eq('id', productId);
       if (productError || count === 0) return {
         statusCode: 404,
